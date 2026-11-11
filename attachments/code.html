@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,500;0,600;1,500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0e1228;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-surface": "#dee0ff", "outline": "#908fa0", "on-tertiary": "#00354a", "background": "#0e1228", "secondary-container": "#8e7100", "error-container": "#93000a", "on-background": "#dee0ff", "primary": "#c0c1ff", "surface-container-low": "#161a30", "outline-variant": "#464554", "on-tertiary-container": "#002d40", "inverse-primary": "#494bd6", "on-surface-variant": "#c7c4d7", "on-primary-fixed-variant": "#2f2ebe", "tertiary": "#7bd0ff", "on-tertiary-fixed-variant": "#004c69", "surface-dim": "#0e1228", "tertiary-container": "#009bd1", "on-primary-container": "#0d0096", "on-secondary-fixed": "#241a00", "error": "#ffb4ab", "surface-tint": "#c0c1ff", "tertiary-fixed": "#c4e7ff", "secondary": "#e7c355", "on-secondary-container": "#fffbff", "on-error-container": "#ffdad6", "primary-fixed": "#e1e0ff", "on-secondary": "#3d2f00", "on-error": "#690005", "surface-container-lowest": "#080c22", "primary-container": "#8083ff", "surface-container-highest": "#2f334b", "secondary-fixed-dim": "#e7c355", "surface-container": "#1a1e35", "on-tertiary-fixed": "#001e2c", "on-primary-fixed": "#07006c", "surface-bright": "#343850", "on-secondary-fixed-variant": "#574500", "on-primary": "#1000a9", "surface-container-high": "#252840", "surface": "#0e1228", "primary-fixed-dim": "#c0c1ff", "secondary-fixed": "#ffe089", "tertiary-fixed-dim": "#7bd0ff", "inverse-on-surface": "#2b2f46", "inverse-surface": "#dee0ff", "surface-variant": "#2f334b" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin-lg": "1.5rem", "space-xs": "0.25rem", "gutter": "1rem", "space-sm": "0.5rem", "margin": "1.25rem", "space-lg": "1.5rem", "space-md": "1rem", "space-xl": "2rem", "gutter-sm": "0.75rem" }, "fontFamily": { "title-md": ["Inter"], "headline-md": ["Playfair Display"], "display-sm": ["Playfair Display"], "label-lg": ["Inter"], "body-lg": ["Inter"], "body-md": ["Inter"], "label-md": ["Inter"], "title-lg": ["Inter"], "body-sm": ["Inter"], "headline-lg-mobile": ["Playfair Display"], "headline-lg": ["Playfair Display"], "display-lg": ["Playfair Display"], "label-sm": ["Inter"] }, "fontSize": { "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "500" }], "display-sm": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "title-lg": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="font-headline-md text-headline-md tracking-tight text-on-surface">Veira</span></div><div class="flex items-center gap-space-sm"><button aria-label="Dışa Aktar" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[22px]">ios_share</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full px-margin pt-16 pb-28 bg-surface"><div class="flex flex-col w-full relative select-none"><!-- Dynamic Ambient Glow behind Canvas -->
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-80 h-72 bg-gradient-to-tr from-primary/15 via-secondary/10 to-transparent blur-3xl rounded-full pointer-events-none -z-10"></div>
+<!-- Top Studio Controls Header -->
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#e7c355]"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Stüdyo Kanvası</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight cursor-pointer hover:underline flex items-center gap-1.5" id="activeBoardTitle" title="Başlığı Değiştir">
+<span id="boardTitleText">2027 Odak &amp; Vizyon Panosu</span>
+<span class="material-symbols-outlined text-[16px] text-outline hover:text-primary">edit</span>
+</h2>
+</div>
+</div>
+<!-- Top Quick Actions -->
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-secondary border border-secondary/30 transition-all shadow-sm text-label-md font-label-md active:scale-95" id="toggleTemplatesBtn">
+<span class="material-symbols-outlined text-[17px]">dashboard</span>
+<span>Şablonlar (20)</span>
+</button>
+<button class="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors text-label-md" id="saveBoardBtn">
+<span class="material-symbols-outlined text-[17px]">bookmark_add</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-md text-label-md shadow-[0_0_18px_rgba(128,131,255,0.4)] active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>HD İndir</span>
+</button>
+</div>
+</div>
+<!-- 20 Categorized Templates Fast Selector (Horizontal & Expandable Drawer) -->
+<div class="flex flex-col gap-1.5 mb-2">
+<div class="flex items-center justify-between px-0.5">
+<span class="font-label-sm text-[11px] text-outline uppercase tracking-wider">Popüler Koleksiyonlar</span>
+<button class="text-secondary text-[11px] font-label-sm flex items-center gap-0.5 hover:underline" id="expandDrawerLink">
+<span>Tüm 20 Şablonu Gör</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward_ios</span>
+</button>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-margin px-margin" id="templatesChipsRow">
+<button class="template-chip flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-[0_0_12px_rgba(192,193,255,0.3)] transition-all" data-template-id="editorial">
+<span class="material-symbols-outlined text-[16px]">auto_stories</span>
+<span>2027 Editorial Journal</span>
+</button>
+<button class="template-chip flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high/70 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors" data-template-id="polaroid">
+<span class="material-symbols-outlined text-[16px]">photo_camera</span>
+<span>Polaroid &amp; Washi Tape</span>
+</button>
+<button class="template-chip flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high/70 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors" data-template-id="luxury">
+<span class="material-symbols-outlined text-[16px]">diamond</span>
+<span>Lüks Como &amp; Retreat</span>
+</button>
+<button class="template-chip flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high/70 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors" data-template-id="wellness">
+<span class="material-symbols-outlined text-[16px]">spa</span>
+<span>Wellness &amp; Zihin Dinginliği</span>
+</button>
+<button class="template-chip flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high/70 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors" data-template-id="abundance">
+<span class="material-symbols-outlined text-[16px]">payments</span>
+<span>Finansal Bolluk 2027</span>
+</button>
+<button class="template-chip flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high/70 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors" data-template-id="minimal">
+<span class="material-symbols-outlined text-[16px]">grid_goldenratio</span>
+<span>Bento Minimal Monolith</span>
+</button>
+</div>
+</div>
+<!-- 20 Categorized Templates Modal / Bottom Sheet Drawer -->
+<div class="hidden fixed inset-0 z-50 bg-surface-container-lowest/80 backdrop-blur-md p-4 flex flex-col justify-end" id="templatesDrawer">
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-2xl p-4 max-h-[85vh] flex flex-col shadow-2xl overflow-hidden w-full max-w-md mx-auto">
+<div class="flex items-center justify-between pb-3 border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[22px]">dashboard_customize</span>
+<h3 class="font-headline-md text-title-lg text-on-surface">20 Özel Vizyon Panosu Şablonu</h3>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" id="closeTemplatesDrawer">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Category Pills Inside Drawer -->
+<div class="flex items-center gap-1.5 py-3 overflow-x-auto no-scrollbar border-b border-outline-variant/10">
+<span class="px-2.5 py-1 rounded-full text-[11px] font-label-sm bg-secondary text-on-secondary font-semibold">Tümü (20)</span>
+<span class="px-2.5 py-1 rounded-full text-[11px] font-label-sm bg-surface-container text-on-surface-variant">Dergi &amp; Kupür</span>
+<span class="px-2.5 py-1 rounded-full text-[11px] font-label-sm bg-surface-container text-on-surface-variant">Polaroid &amp; Scrap</span>
+<span class="px-2.5 py-1 rounded-full text-[11px] font-label-sm bg-surface-container text-on-surface-variant">Lüks &amp; Finans</span>
+<span class="px-2.5 py-1 rounded-full text-[11px] font-label-sm bg-surface-container text-on-surface-variant">Minimal &amp; Aura</span>
+</div>
+<!-- 20 Templates Grid List -->
+<div class="overflow-y-auto no-scrollbar py-3 grid grid-cols-2 gap-2.5 pr-1">
+<!-- 1 -->
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-primary/30 hover:border-primary transition-all flex flex-col gap-1.5" data-tpl-apply="editorial">
+<div class="w-full h-20 rounded-lg bg-surface-container-highest overflow-hidden relative">
+<img alt="Editorial" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAscUhsBeafhRMZg-kL47SH_mFGNlt8VB8Schg_wRfk1DKBWW_XAO53aVw9h1IycPwDDEnwVN5q9u_iBNaKixg1dnqp8sgSvG8qE2wbw2_XK0Su_6Lx5k_RP_xssEkRlHczUOvea4TPZPH26cmVwb-8M64N-Z2B6aNs7kuaCU9bMl5NIIR1dV4SMttNXXu-j9-ghYjY12TI9_yNyQy0Xc5JWxuJZUQl-CLpjd0VHww"/>
+<span class="absolute top-1 left-1 bg-surface/90 px-1.5 py-0.5 rounded text-[9px] text-secondary font-bold">AKTİF</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">1. 2027 Editorial Journal</span>
+<span class="text-[10px] text-outline truncate">Vogue &amp; Serif Estetiği</span>
+</div>
+</div>
+<!-- 2 -->
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1.5" data-tpl-apply="polaroid">
+<div class="w-full h-20 rounded-lg bg-surface-container-highest overflow-hidden relative">
+<img alt="Polaroid" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsqzq7gxUVDX4DtbcNUkeSvclC8Nj5zbhncqysRdAls34q65DntYBEjo4oA_2uC4fiXK_YGV-7l6WjJ7A0H2rOTWJXD3QOexHa8D8o01RYiY8ztIFfk9TMbRZNDytKU0_eA71-hDraZF2T1ih-4GuDo-i3YZ6S1GwzlTcUQPb3rFHneRmcEeqMhs1bV29Oi3b9xXGiBPUQpceGVdDMbMEGHUM3ubFkkKh3RjBUETc"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">2. Polaroid Nostalji</span>
+<span class="text-[10px] text-outline truncate">Washi Bantlar &amp; Çıkartmalar</span>
+</div>
+</div>
+<!-- 3 -->
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1.5" data-tpl-apply="luxury">
+<div class="w-full h-20 rounded-lg bg-surface-container-highest overflow-hidden relative">
+<img alt="Luxury" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPfQjT1J79y55xVPoog0r5xaYdKEYF_nCO6cB2kj-y2BNNXd0CBSIPjmS2NXCGB5o7YgnnJmclgwQ2vctkL9xr6KFUM1ViFp5HHesMtM95n4eKgvgDQndr4nkB2CZh4vf446GV2sKB4bs5K6WqOmD1DG2n7Sy0UtS4yBZF27SS_sX-JrJPj2KqoMZpmubjpfsnRrSIIysvNjyG6AHD191rXh1ff9ecYv8cP8c1jg0"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">3. Lüks Como İnzivası</span>
+<span class="text-[10px] text-outline truncate">Altın Tipografi &amp; Sessiz Lüks</span>
+</div>
+</div>
+<!-- 4 -->
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1.5" data-tpl-apply="wellness">
+<div class="w-full h-20 rounded-lg bg-surface-container-highest overflow-hidden relative flex items-center justify-center bg-gradient-to-tr from-secondary/20 to-tertiary/20">
+<span class="material-symbols-outlined text-secondary text-[32px]">self_improvement</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">4. Wellness &amp; Mindful</span>
+<span class="text-[10px] text-outline truncate">432Hz Aura &amp; Beden Ritmi</span>
+</div>
+</div>
+<!-- 5 -->
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1.5" data-tpl-apply="abundance">
+<div class="w-full h-20 rounded-lg bg-surface-container-highest overflow-hidden relative flex items-center justify-center bg-gradient-to-tr from-primary/20 to-secondary/20">
+<span class="material-symbols-outlined text-primary text-[32px]">monetization_on</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">5. Finansal Bolluk</span>
+<span class="text-[10px] text-outline truncate">Kariyer &amp; Ölçeklenme</span>
+</div>
+</div>
+<!-- 6 -->
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1.5" data-tpl-apply="minimal">
+<div class="w-full h-20 rounded-lg bg-surface-container-highest overflow-hidden relative flex items-center justify-center bg-gradient-to-tr from-surface-bright to-surface-container-low">
+<span class="material-symbols-outlined text-outline text-[32px]">view_quilt</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">6. Bento Monolith</span>
+<span class="text-[10px] text-outline truncate">Net Geometrik Izgara</span>
+</div>
+</div>
+<!-- 7 to 20 Compact Quick Selectors -->
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="polaroid">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">7. Seyahat &amp; Akdeniz</span>
+<span class="text-[10px] text-outline">Amalfi &amp; Ege güneşi</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="editorial">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">8. Gün Batımı Aura</span>
+<span class="text-[10px] text-outline">Aura gradyan &amp; huzur</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="luxury">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">9. Gece Zihni Kozmik</span>
+<span class="text-[10px] text-outline">Derin lacivert &amp; takımyıldız</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="editorial">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">10. Sanatçı Atölyesi</span>
+<span class="text-[10px] text-outline">Boya lekeleri &amp; eskiz</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="minimal">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">11. Parisienne Sokak</span>
+<span class="text-[10px] text-outline">Kahve, kitap &amp; trençkot</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="abundance">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">12. Gayrimenkul &amp; Ev</span>
+<span class="text-[10px] text-outline">Cam tavanlı loft hayali</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="wellness">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">13. Sabah Ritüelleri</span>
+<span class="text-[10px] text-outline">Matcha &amp; günlük yazma</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="polaroid">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">14. Vintage 90s Grain</span>
+<span class="text-[10px] text-outline">Film kamerası hissi</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="editorial">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">15. Fit Beden &amp; Pilates</span>
+<span class="text-[10px] text-outline">Reformer &amp; esneklik</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="luxury">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">16. Dijital Göçebe</span>
+<span class="text-[10px] text-outline">Bali villası &amp; Mac</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="minimal">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">17. İskandinav Sade</span>
+<span class="text-[10px] text-outline">Hygge &amp; bej monokrom</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="abundance">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">18. Kariyer Zirvesi</span>
+<span class="text-[10px] text-outline">CEO &amp; Keynote konuşmaları</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="wellness">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">19. 100 Kitap &amp; Bilgelik</span>
+<span class="text-[10px] text-outline">Kütüphane &amp; not defteri</span>
+</div>
+<div class="drawer-template-card cursor-pointer p-2 rounded-xl bg-surface-container border border-outline-variant/30 hover:border-primary transition-all flex flex-col gap-1" data-tpl-apply="editorial">
+<span class="font-label-md text-[12px] text-on-surface font-semibold">20. Ruh Eşi &amp; Sevgi</span>
+<span class="text-[10px] text-outline">Derin bağ &amp; aşk vizyonu</span>
+</div>
+</div>
+<button class="w-full mt-2 py-2.5 rounded-xl bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-container-highest transition-colors" id="closeDrawerFooterBtn">
+      Kapat
+    </button>
+</div>
+</div>
+<!-- Interactive Vision Board Collage Canvas Area -->
+<div class="relative w-full aspect-[4/5] rounded-xl bg-surface-container-lowest overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.55)] border border-outline-variant/20" id="canvasContainer">
+<!-- Subtle Canvas Grid Pattern & Vignette Texture -->
+<div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: radial-gradient(rgba(192, 193, 255, 0.3) 1px, transparent 1px); background-size: 18px 18px;"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-surface-container-lowest/80 pointer-events-none"></div>
+<!-- Live Canvas Workspace Layer -->
+<div class="relative w-full h-full p-2.5" id="canvasLayers">
+<!-- Slot 1: Polaroid Card with Image + Editable Tape -->
+<div class="canvas-item absolute top-2.5 left-2 w-36 bg-surface-container p-1.5 pb-2 rounded shadow-[0_8px_24px_rgba(0,0,0,0.4)] -rotate-3 cursor-pointer transition-transform hover:scale-105" style="z-index: 12;">
+<!-- Gold/Yellow Washi Tape Element -->
+<div class="absolute -top-2 left-6 w-16 h-4 bg-secondary/80 text-on-secondary text-[9px] font-semibold flex items-center justify-center -rotate-6 shadow-sm rounded-xs pointer-events-none tracking-wider uppercase opacity-95 content-editable-washi">
+        BALANCE
+      </div>
+<div class="photo-slot relative w-full aspect-[4/3] rounded-xs overflow-hidden bg-surface-container-high group">
+<img class="w-full h-full object-cover slot-img" data-alt="Healthy bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAscUhsBeafhRMZg-kL47SH_mFGNlt8VB8Schg_wRfk1DKBWW_XAO53aVw9h1IycPwDDEnwVN5q9u_iBNaKixg1dnqp8sgSvG8qE2wbw2_XK0Su_6Lx5k_RP_xssEkRlHczUOvea4TPZPH26cmVwb-8M64N-Z2B6aNs7kuaCU9bMl5NIIR1dV4SMttNXXu-j9-ghYjY12TI9_yNyQy0Xc5JWxuJZUQl-CLpjd0VHww"/>
+<!-- Slot '+' overlay for replacing photo -->
+<button class="upload-slot-btn absolute inset-0 bg-surface-container-lowest/70 backdrop-blur-xs flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-primary gap-0.5" title="Fotoğrafı Değiştir">
+<span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+<span class="text-[10px] font-label-sm font-semibold">Değiştir</span>
+</button>
+</div>
+<div class="pt-1.5 px-1 flex items-center justify-between">
+<span class="font-headline-md text-[13px] text-on-surface tracking-wide italic outline-none hover:bg-surface-container-high/60 px-1 rounded" contenteditable="true" spellcheck="false">vitality &amp; joy</span>
+<span class="material-symbols-outlined text-[13px] text-secondary">favorite</span>
+</div>
+</div>
+<!-- Slot 2: Gold Clipping Title Snippet '2027 GOALS' -->
+<div class="canvas-item absolute top-2 right-3 flex items-center gap-1.5 bg-surface-container-highest/95 border border-secondary/40 px-2.5 py-1 rounded-md shadow-lg rotate-2 cursor-pointer transition-transform hover:scale-105" style="z-index: 15;">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_#ffe089]"></span>
+<span class="font-headline-md text-title-md text-secondary tracking-widest uppercase outline-none hover:bg-surface-container-high/80 px-1 rounded" contenteditable="true" spellcheck="false">2027 GOALS</span>
+<span class="text-[10px] text-outline font-semibold uppercase">SCALE</span>
+</div>
+<!-- Slot 3: Editorial Sunset Photo + Washi Tape (Right) -->
+<div class="canvas-item absolute top-12 right-2 w-44 rounded-lg overflow-hidden shadow-[0_12px_28px_rgba(0,0,0,0.6)] rotate-1 cursor-pointer transition-transform hover:scale-105" style="z-index: 11;">
+<!-- Gold Push Pin Accent -->
+<div class="absolute top-1.5 right-2 w-3.5 h-3.5 rounded-full bg-secondary shadow-[0_0_8px_#ffe089] z-20 flex items-center justify-center">
+<div class="w-1 h-1 rounded-full bg-surface-container-lowest"></div>
+</div>
+<div class="photo-slot relative w-full h-44 bg-surface-container-low group">
+<img class="w-full h-full object-cover slot-img" data-alt="Mindful ocean meditation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPfQjT1J79y55xVPoog0r5xaYdKEYF_nCO6cB2kj-y2BNNXd0CBSIPjmS2NXCGB5o7YgnnJmclgwQ2vctkL9xr6KFUM1ViFp5HHesMtM95n4eKgvgDQndr4nkB2CZh4vf446GV2sKB4bs5K6WqOmD1DG2n7Sy0UtS4yBZF27SS_sX-JrJPj2KqoMZpmubjpfsnRrSIIysvNjyG6AHD191rXh1ff9ecYv8cP8c1jg0"/>
+<button class="upload-slot-btn absolute inset-0 bg-surface-container-lowest/70 backdrop-blur-xs flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-secondary gap-0.5" title="Fotoğrafı Değiştir">
+<span class="material-symbols-outlined text-[20px]">add_photo_alternate</span>
+<span class="text-[10px] font-label-sm font-semibold">Fotoğraf Değiştir</span>
+</button>
+</div>
+<div class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/85 backdrop-blur-md px-2.5 py-1.5 flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface tracking-wide outline-none hover:bg-surface-container-high/60 px-0.5 rounded" contenteditable="true" spellcheck="false">peace of mind</span>
+<span class="font-label-sm text-[10px] text-tertiary uppercase font-bold">MANİFEST</span>
+</div>
+</div>
+<!-- Slot 4: Magazine Tape Headline 'SCALE NOT SURVIVAL' -->
+<div class="canvas-item absolute top-39 left-8 bg-secondary text-on-secondary px-3 py-1 rounded shadow-md -rotate-6 cursor-pointer transition-transform hover:scale-105" style="z-index: 16;">
+<!-- Transparent Washi Sticker effect -->
+<div class="absolute -top-1.5 right-2 w-7 h-2.5 bg-white/40 -rotate-12 backdrop-blur-xs rounded-xs"></div>
+<span class="font-headline-md text-[15px] italic font-semibold outline-none hover:bg-secondary/90 px-0.5 rounded" contenteditable="true" spellcheck="false">SCALE NOT SURVIVAL</span>
+</div>
+<!-- Slot 5: Abundance & Manifestation Note (Mid Left) -->
+<div class="canvas-item absolute top-48 left-2 w-40 bg-surface-container-high/90 backdrop-blur-md p-2.5 rounded-lg shadow-xl rotate-3 cursor-pointer transition-transform hover:scale-105" style="z-index: 14;">
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">auto_awesome</span>
+<span class="font-label-sm text-[11px] uppercase tracking-wider text-secondary font-semibold outline-none hover:bg-surface-container/60 px-0.5 rounded" contenteditable="true" spellcheck="false">FINANCIAL ABUNDANCE</span>
+</div>
+<p class="font-headline-md text-[13px] text-on-surface italic leading-snug outline-none hover:bg-surface-container/60 p-0.5 rounded" contenteditable="true" spellcheck="false">
+        "I attract infinite clarity, deliberate slow mornings &amp; boundless freedom."
+      </p>
+</div>
+<!-- Slot 6: Empty Dedicated Photo Slot ('+' Slot placeholder for user image) -->
+<div class="canvas-item absolute bottom-20 left-4 w-32 h-24 rounded-lg border-2 border-dashed border-primary/50 bg-surface-container-low/80 backdrop-blur-xs p-1 flex flex-col items-center justify-center cursor-pointer transition-transform hover:scale-105 active:scale-95 group shadow-lg" style="z-index: 17;" title="Dokun ve Kendi Fotoğrafını Ekle">
+<div class="w-7 h-7 rounded-full bg-primary/20 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</div>
+<span class="text-[11px] font-label-sm text-primary font-medium mt-1">Fotoğraf Ekle</span>
+<span class="text-[9px] text-outline">Slot #4</span>
+</div>
+<!-- Slot 7: Travel / Como Balcony Polaroid (Bottom Right) -->
+<div class="canvas-item absolute bottom-3 right-3 w-40 bg-surface-container p-1.5 pb-2 rounded shadow-[0_10px_28px_rgba(0,0,0,0.5)] -rotate-2 cursor-pointer transition-transform hover:scale-105" style="z-index: 13;">
+<div class="photo-slot relative w-full h-32 rounded-xs overflow-hidden bg-surface-container-low group">
+<img class="w-full h-full object-cover slot-img" data-alt="Lake Como Balcony" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsqzq7gxUVDX4DtbcNUkeSvclC8Nj5zbhncqysRdAls34q65DntYBEjo4oA_2uC4fiXK_YGV-7l6WjJ7A0H2rOTWJXD3QOexHa8D8o01RYiY8ztIFfk9TMbRZNDytKU0_eA71-hDraZF2T1ih-4GuDo-i3YZ6S1GwzlTcUQPb3rFHneRmcEeqMhs1bV29Oi3b9xXGiBPUQpceGVdDMbMEGHUM3ubFkkKh3RjBUETc"/>
+<button class="upload-slot-btn absolute inset-0 bg-surface-container-lowest/70 backdrop-blur-xs flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-primary gap-0.5" title="Fotoğrafı Değiştir">
+<span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+<span class="text-[10px] font-label-sm font-semibold">Değiştir</span>
+</button>
+</div>
+<div class="pt-1.5 px-1 flex items-center justify-between">
+<span class="font-body-sm text-[12px] text-on-surface outline-none hover:bg-surface-container-high/60 px-0.5 rounded" contenteditable="true" spellcheck="false">Dream Living</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">07:00</span>
+</div>
+</div>
+<!-- Slot 8: Golden Habit Ribbon / Washi Sticker 'DAILY MOVEMENT' -->
+<div class="canvas-item absolute bottom-12 left-2 flex items-center gap-1 bg-tertiary-container/85 text-on-tertiary-container px-2.5 py-1 rounded-full shadow-[0_4px_16px_rgba(0,155,209,0.3)] rotate-3 cursor-pointer transition-transform hover:scale-105" style="z-index: 18;">
+<span class="material-symbols-outlined text-[15px]">fitness_center</span>
+<span class="font-label-md text-[11px] font-semibold tracking-wide outline-none" contenteditable="true" spellcheck="false">DAILY MOVEMENT • 2027</span>
+</div>
+<!-- Slot 9: Star Celestial Pin Sticker -->
+<div class="canvas-item absolute bottom-2 left-28 w-9 h-9 rounded-full bg-surface-container-highest/95 border border-secondary/40 flex items-center justify-center shadow-lg cursor-pointer transition-transform hover:rotate-12" style="z-index: 19;">
+<span class="material-symbols-outlined text-secondary text-[20px]">star</span>
+</div>
+<!-- Active Selection Bounding Box -->
+<div class="absolute top-39 left-8 pointer-events-none hidden transition-all duration-150" id="selectionGizmo" style="z-index: 30;">
+<div class="w-32 h-10 border-2 border-primary/80 rounded relative">
+<div class="absolute -top-1.5 -left-1.5 w-3 h-3 bg-primary rounded-full shadow-sm"></div>
+<div class="absolute -top-1.5 -right-1.5 w-3 h-3 bg-primary rounded-full shadow-sm"></div>
+<div class="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-primary rounded-full shadow-sm"></div>
+<div class="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-primary rounded-full shadow-sm"></div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-primary text-on-primary text-[10px] font-semibold px-1.5 py-0.5 rounded shadow">Seçili Öğe</div>
+</div>
+</div>
+</div>
+<!-- Quick In-Canvas Floating Bar (Undo/Redo, Grid, Clear) -->
+<div class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-surface-container-high/85 backdrop-blur-md px-2 py-1 rounded-full shadow-md z-30">
+<button aria-label="Geri Al" class="w-7 h-7 flex items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-90 transition-transform" id="canvasUndoBtn">
+<span class="material-symbols-outlined text-[17px]">undo</span>
+</button>
+<button aria-label="İleri Al" class="w-7 h-7 flex items-center justify-center text-on-surface-variant hover:text-on-surface active:scale-90 transition-transform" id="canvasRedoBtn">
+<span class="material-symbols-outlined text-[17px]">redo</span>
+</button>
+<div class="w-px h-3.5 bg-outline-variant/40 mx-0.5"></div>
+<button aria-label="Izgara Hizalama" class="w-7 h-7 flex items-center justify-center text-primary hover:text-on-surface" id="canvasGridBtn">
+<span class="material-symbols-outlined text-[16px]">grid_4x4</span>
+</button>
+<button aria-label="Temizle" class="w-7 h-7 flex items-center justify-center text-error/80 hover:text-error" id="canvasClearBtn">
+<span class="material-symbols-outlined text-[16px]">delete_sweep</span>
+</button>
+</div>
+<!-- Canvas Zoom & Active Template Tag Indicator -->
+<div class="absolute bottom-2.5 left-2.5 flex items-center gap-1.5 z-30">
+<div class="px-2 py-0.5 rounded-full bg-surface-container-high/85 backdrop-blur-md text-secondary font-label-sm text-[10px] flex items-center gap-1 shadow-md border border-secondary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+<span id="canvasActiveLayoutName">Editorial Journal</span>
+</div>
+<div class="px-2 py-0.5 rounded-full bg-surface-container-high/85 backdrop-blur-md text-on-surface-variant font-label-sm text-[10px] flex items-center gap-0.5 shadow-md">
+<span class="material-symbols-outlined text-[12px]">zoom_in</span>
+<span>%100</span>
+</div>
+</div>
+</div>
+<!-- Studio Crafting Bottom Bar (Scrapbook, Canva & Vision Board Toolset) -->
+<div class="mt-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Stüdyo Araçları</span>
+<button class="font-body-sm text-body-sm text-secondary flex items-center gap-1 cursor-pointer hover:underline" id="smartLayoutMagicBtn">
+<span class="material-symbols-outlined text-[15px]">magic_button</span>
+<span>Akıllı Kolaj Düzeni</span>
+</button>
+</div>
+<!-- 5 Core Studio Action Tabs -->
+<div class="grid grid-cols-5 gap-2">
+<!-- 1. Şablonlar (20) -->
+<button class="flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-colors active:scale-95 group shadow-sm border border-secondary/30" id="bottomTabTemplates">
+<div class="w-8 h-8 rounded-full bg-secondary/15 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-all">
+<span class="material-symbols-outlined text-[19px]">auto_awesome_motion</span>
+</div>
+<span class="font-label-sm text-[11px] text-secondary text-center leading-tight font-semibold">Şablonlar (20)</span>
+</button>
+<!-- 2. Fotoğraf Ekle (+) -->
+<button class="flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-colors active:scale-95 group shadow-sm" id="bottomTabAddPhoto">
+<div class="w-8 h-8 rounded-full bg-primary/15 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined text-[19px]">add_photo_alternate</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface text-center leading-tight">Fotoğraf (+)</span>
+</button>
+<!-- 3. Bant & Sticker -->
+<button class="flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-colors active:scale-95 group shadow-sm" id="bottomTabTape">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed/20 text-secondary-fixed flex items-center justify-center group-hover:bg-secondary-fixed group-hover:text-on-secondary-fixed transition-all">
+<span class="material-symbols-outlined text-[19px]">push_pin</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface text-center leading-tight">Bant &amp; Pin</span>
+</button>
+<!-- 4. Tipografi -->
+<button class="flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-colors active:scale-95 group shadow-sm" id="bottomTabTypography">
+<div class="w-8 h-8 rounded-full bg-tertiary/15 text-tertiary flex items-center justify-center group-hover:bg-tertiary group-hover:text-on-tertiary transition-all">
+<span class="material-symbols-outlined text-[19px]">format_quote</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface text-center leading-tight">Tipografi</span>
+</button>
+<!-- 5. Katmanlar -->
+<button class="flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl bg-surface-container-high hover:bg-surface-container-highest transition-colors active:scale-95 group shadow-sm" id="bottomTabLayers">
+<div class="w-8 h-8 rounded-full bg-outline-variant/30 text-on-surface-variant flex items-center justify-center group-hover:bg-outline text-on-surface transition-all">
+<span class="material-symbols-outlined text-[19px]">layers</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface text-center leading-tight">Katmanlar</span>
+</button>
+</div>
+<!-- Quick Asset Presets Tray (Stickers & Quotes ready to tap and drop) -->
+<div class="mt-1 p-2.5 rounded-xl bg-surface-container/70 backdrop-blur-lg shadow-sm border border-outline-variant/20">
+<div class="flex items-center justify-between pb-1.5 px-0.5">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-[15px]">bolt</span>
+<span>Hızlı Ekle: Motivasyon &amp; Estetik Kupür</span>
+</span>
+<button class="font-label-sm text-[11px] text-primary hover:underline" id="viewAllAssetsLink">Tümünü Gör</button>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+<!-- Sticker 1 -->
+<button class="quick-add-sticker flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-highest hover:bg-primary/20 text-on-surface text-label-sm font-label-sm transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
+<span>"self-care first"</span>
+</button>
+<!-- Sticker 2 -->
+<button class="quick-add-sticker flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-highest hover:bg-primary/20 text-on-surface text-label-sm font-label-sm transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-[14px] text-tertiary">wb_sunny</span>
+<span>"slow mornings"</span>
+</button>
+<!-- Sticker 3 -->
+<button class="quick-add-sticker flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-highest hover:bg-primary/20 text-on-surface text-label-sm font-label-sm transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-[14px] text-secondary">payments</span>
+<span>"abundance mindset"</span>
+</button>
+<!-- Sticker 4 -->
+<button class="quick-add-sticker flex-shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-highest hover:bg-primary/20 text-on-surface text-label-sm font-label-sm transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-[14px] text-primary">flight_takeoff</span>
+<span>"Lake Como 2027"</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Interactive Studio Engine Script -->
+<script>
+  (function() {
+    // Templates definitions with distinct layouts
+    const templatesData = {
+      editorial: {
+        name: '2027 Editorial Journal',
+        title: '2027 Odak & Vizyon Panosu',
+        html: `
+          <div class="canvas-item absolute top-2.5 left-2 w-36 bg-surface-container p-1.5 pb-2 rounded shadow-[0_8px_24px_rgba(0,0,0,0.4)] -rotate-3 cursor-pointer transition-transform hover:scale-105" style="z-index: 12;">
+            <div class="absolute -top-2 left-6 w-16 h-4 bg-secondary/80 text-on-secondary text-[9px] font-semibold flex items-center justify-center -rotate-6 shadow-sm rounded-xs pointer-events-none tracking-wider uppercase opacity-95">BALANCE</div>
+            <div class="photo-slot relative w-full aspect-[4/3] rounded-xs overflow-hidden bg-surface-container-high group">
+              <img class="w-full h-full object-cover slot-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAscUhsBeafhRMZg-kL47SH_mFGNlt8VB8Schg_wRfk1DKBWW_XAO53aVw9h1IycPwDDEnwVN5q9u_iBNaKixg1dnqp8sgSvG8qE2wbw2_XK0Su_6Lx5k_RP_xssEkRlHczUOvea4TPZPH26cmVwb-8M64N-Z2B6aNs7kuaCU9bMl5NIIR1dV4SMttNXXu-j9-ghYjY12TI9_yNyQy0Xc5JWxuJZUQl-CLpjd0VHww"/>
+              <button class="upload-slot-btn absolute inset-0 bg-surface-container-lowest/70 backdrop-blur-xs flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-primary gap-0.5">
+                <span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+                <span class="text-[10px] font-label-sm font-semibold">Değiştir</span>
+              </button>
+            </div>
+            <div class="pt-1.5 px-1 flex items-center justify-between">
+              <span contenteditable="true" spellcheck="false" class="font-headline-md text-[13px] text-on-surface tracking-wide italic outline-none">vitality & joy</span>
+              <span class="material-symbols-outlined text-[13px] text-secondary">favorite</span>
+            </div>
+          </div>
+
+          <div class="canvas-item absolute top-2 right-3 flex items-center gap-1.5 bg-surface-container-highest/95 border border-secondary/40 px-2.5 py-1 rounded-md shadow-lg rotate-2 cursor-pointer transition-transform hover:scale-105" style="z-index: 15;">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_#ffe089]"></span>
+            <span contenteditable="true" spellcheck="false" class="font-headline-md text-title-md text-secondary tracking-widest uppercase outline-none">2027 GOALS</span>
+            <span class="text-[10px] text-outline font-semibold uppercase">SCALE</span>
+          </div>
+
+          <div class="canvas-item absolute top-12 right-2 w-44 rounded-lg overflow-hidden shadow-[0_12px_28px_rgba(0,0,0,0.6)] rotate-1 cursor-pointer transition-transform hover:scale-105" style="z-index: 11;">
+            <div class="absolute top-1.5 right-2 w-3.5 h-3.5 rounded-full bg-secondary shadow-[0_0_8px_#ffe089] z-20 flex items-center justify-center">
+              <div class="w-1 h-1 rounded-full bg-surface-container-lowest"></div>
+            </div>
+            <div class="photo-slot relative w-full h-44 bg-surface-container-low group">
+              <img class="w-full h-full object-cover slot-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPfQjT1J79y55xVPoog0r5xaYdKEYF_nCO6cB2kj-y2BNNXd0CBSIPjmS2NXCGB5o7YgnnJmclgwQ2vctkL9xr6KFUM1ViFp5HHesMtM95n4eKgvgDQndr4nkB2CZh4vf446GV2sKB4bs5K6WqOmD1DG2n7Sy0UtS4yBZF27SS_sX-JrJPj2KqoMZpmubjpfsnRrSIIysvNjyG6AHD191rXh1ff9ecYv8cP8c1jg0"/>
+              <button class="upload-slot-btn absolute inset-0 bg-surface-container-lowest/70 backdrop-blur-xs flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-secondary gap-0.5">
+                <span class="material-symbols-outlined text-[20px]">add_photo_alternate</span>
+                <span class="text-[10px] font-label-sm font-semibold">Değiştir</span>
+              </button>
+            </div>
+            <div class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/85 backdrop-blur-md px-2.5 py-1.5 flex justify-between items-center">
+              <span contenteditable="true" spellcheck="false" class="font-label-sm text-label-sm text-on-surface tracking-wide outline-none">peace of mind</span>
+              <span class="font-label-sm text-[10px] text-tertiary uppercase font-bold">MANİFEST</span>
+            </div>
+          </div>
+
+          <div class="canvas-item absolute top-39 left-8 bg-secondary text-on-secondary px-3 py-1 rounded shadow-md -rotate-6 cursor-pointer" style="z-index: 16;">
+            <div class="absolute -top-1.5 right-2 w-7 h-2.5 bg-white/40 -rotate-12 backdrop-blur-xs rounded-xs"></div>
+            <span contenteditable="true" spellcheck="false" class="font-headline-md text-[15px] italic font-semibold outline-none">SCALE NOT SURVIVAL</span>
+          </div>
+
+          <div class="canvas-item absolute top-48 left-2 w-40 bg-surface-container-high/90 backdrop-blur-md p-2.5 rounded-lg shadow-xl rotate-3 cursor-pointer" style="z-index: 14;">
+            <div class="flex items-center gap-1 mb-1">
+              <span class="material-symbols-outlined text-[14px] text-secondary">auto_awesome</span>
+              <span contenteditable="true" spellcheck="false" class="font-label-sm text-[11px] uppercase tracking-wider text-secondary font-semibold outline-none">FINANCIAL ABUNDANCE</span>
+            </div>
+            <p contenteditable="true" spellcheck="false" class="font-headline-md text-[13px] text-on-surface italic leading-snug outline-none">
+              "I attract infinite clarity, deliberate slow mornings & boundless freedom."
+            </p>
+          </div>
+
+          <div class="canvas-item absolute bottom-20 left-4 w-32 h-24 rounded-lg border-2 border-dashed border-primary/50 bg-surface-container-low/80 backdrop-blur-xs p-1 flex flex-col items-center justify-center cursor-pointer transition-transform hover:scale-105 active:scale-95 group shadow-lg" style="z-index: 17;">
+            <div class="w-7 h-7 rounded-full bg-primary/20 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-all">
+              <span class="material-symbols-outlined text-[18px]">add</span>
+            </div>
+            <span class="text-[11px] font-label-sm text-primary font-medium mt-1">Fotoğraf Ekle</span>
+            <span class="text-[9px] text-outline">Slot #4</span>
+          </div>
+
+          <div class="canvas-item absolute bottom-3 right-3 w-40 bg-surface-container p-1.5 pb-2 rounded shadow-[0_10px_28px_rgba(0,0,0,0.5)] -rotate-2 cursor-pointer" style="z-index: 13;">
+            <div class="photo-slot relative w-full h-32 rounded-xs overflow-hidden bg-surface-container-low group">
+              <img class="w-full h-full object-cover slot-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsqzq7gxUVDX4DtbcNUkeSvclC8Nj5zbhncqysRdAls34q65DntYBEjo4oA_2uC4fiXK_YGV-7l6WjJ7A0H2rOTWJXD3QOexHa8D8o01RYiY8ztIFfk9TMbRZNDytKU0_eA71-hDraZF2T1ih-4GuDo-i3YZ6S1GwzlTcUQPb3rFHneRmcEeqMhs1bV29Oi3b9xXGiBPUQpceGVdDMbMEGHUM3ubFkkKh3RjBUETc"/>
+              <button class="upload-slot-btn absolute inset-0 bg-surface-container-lowest/70 backdrop-blur-xs flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-primary gap-0.5">
+                <span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+                <span class="text-[10px] font-label-sm font-semibold">Değiştir</span>
+              </button>
+            </div>
+            <div class="pt-1.5 px-1 flex items-center justify-between">
+              <span contenteditable="true" spellcheck="false" class="font-body-sm text-[12px] text-on-surface outline-none">Dream Living</span>
+              <span class="font-label-sm text-[10px] text-on-surface-variant">07:00</span>
+            </div>
+          </div>
+
+          <div class="canvas-item absolute bottom-12 left-2 flex items-center gap-1 bg-tertiary-container/85 text-on-tertiary-container px-2.5 py-1 rounded-full shadow-[0_4px_16px_rgba(0,155,209,0.3)] rotate-3 cursor-pointer" style="z-index: 18;">
+            <span class="material-symbols-outlined text-[15px]">fitness_center</span>
+            <span contenteditable="true" spellcheck="false" class="font-label-md text-[11px] font-semibold tracking-wide outline-none">DAILY MOVEMENT • 2027</span>
+          </div>
+
+          <div class="canvas-item absolute bottom-2 left-28 w-9 h-9 rounded-full bg-surface-container-highest/95 border border-secondary/40 flex items-center justify-center shadow-lg cursor-pointer" style="z-index: 19;">
+            <span class="material-symbols-outlined text-secondary text-[20px]">star</span>
+          </div>
+        `
+      },
+      polaroid: {
+        name: 'Polaroid & Washi Tape',
+        title: 'Nostalji & Washi Mood',
+        html: `
+          <div class="canvas-item absolute top-3 left-4 w-40 bg-surface-container p-2 pb-3 rounded-lg shadow-xl -rotate-2 cursor-pointer transition-transform hover:scale-105" style="z-index: 12;">
+            <div class="absolute -top-2 left-10 w-16 h-4 bg-secondary/80 text-on-secondary text-[8px] font-bold flex items-center justify-center -rotate-3 shadow">MEMORIES</div>
+            <div class="photo-slot relative w-full h-36 bg-surface-container-high rounded overflow-hidden group">
+              <img class="w-full h-full object-cover slot-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsqzq7gxUVDX4DtbcNUkeSvclC8Nj5zbhncqysRdAls34q65DntYBEjo4oA_2uC4fiXK_YGV-7l6WjJ7A0H2rOTWJXD3QOexHa8D8o01RYiY8ztIFfk9TMbRZNDytKU0_eA71-hDraZF2T1ih-4GuDo-i3YZ6S1GwzlTcUQPb3rFHneRmcEeqMhs1bV29Oi3b9xXGiBPUQpceGVdDMbMEGHUM3ubFkkKh3RjBUETc"/>
+              <button class="upload-slot-btn absolute inset-0 bg-surface-container-lowest/70 backdrop-blur-xs flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-primary gap-0.5">
+                <span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+                <span class="text-[10px] font-semibold">Değiştir</span>
+              </button>
+            </div>
+            <div class="pt-2 text-center">
+              <span contenteditable="true" spellcheck="false" class="font-headline-md text-[14px] text-on-surface italic outline-none">golden hour moments</span>
+            </div>
+          </div>
+
+          <div class="canvas-item absolute top-4 right-3 w-40 bg-surface-container p-2 pb-3 rounded-lg shadow-xl rotate-3 cursor-pointer transition-transform hover:scale-105" style="z-index: 13;">
+            <div class="absolute -top-2 right-8 w-14 h-4 bg-primary/70 text-on-primary text-[8px] font-bold flex items-center justify-center rotate-6 shadow">SUNSET 27</div>
+            <div class="photo-slot relative w-full h-36 bg-surface-container-high rounded overflow-hidden group">
+              <img class="w-full h-full object-cover slot-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPfQjT1J79y55xVPoog0r5xaYdKEYF_nCO6cB2kj-y2BNNXd0CBSIPjmS2NXCGB5o7YgnnJmclgwQ2vctkL9xr6KFUM1ViFp5HHesMtM95n4eKgvgDQndr4nkB2CZh4vf446GV2sKB4bs5K6WqOmD1DG2n7Sy0UtS4yBZF27SS_sX-JrJPj2KqoMZpmubjpfsnRrSIIysvNjyG6AHD191rXh1ff9ecYv8cP8c1jg0"/>
+              <button class="upload-slot-btn absolute inset-0 bg-surface-container-lowest/70 backdrop-blur-xs flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-secondary gap-0.5">
+                <span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+                <span class="text-[10px] font-semibold">Değiştir</span>
+              </button>
+            </div>
+            <div class="pt-2 text-center">
+              <span contenteditable="true" spellcheck="false" class="font-headline-md text-[14px] text-on-surface italic outline-none">peace within</span>
+            </div>
+          </div>
+
+          <div class="canvas-item absolute top-48 left-1/2 -translate-x-1/2 bg-secondary text-on-secondary px-4 py-1.5 rounded-full shadow-lg -rotate-1 cursor-pointer" style="z-index: 17;">
+            <span contenteditable="true" spellcheck="false" class="font-headline-md text-[16px] italic font-bold outline-none">COLLECT BEAUTIFUL MOMENTS</span>
+          </div>
+
+          <div class="canvas-item absolute bottom-6 left-3 w-40 h-36 rounded-xl border-2 border-dashed border-secondary/60 bg-surface-container-low/90 p-2 flex flex-col items-center justify-center cursor-pointer transition-transform hover:scale-105" style="z-index: 15;">
+            <div class="w-9 h-9 rounded-full bg-secondary/20 text-secondary flex items-center justify-center">
+              <span class="material-symbols-outlined text-[22px]">add_a_photo</span>
+            </div>
+            <span class="text-[12px] font-label-sm text-secondary font-semibold mt-1">Fotoğraf Slotu #2</span>
+            <span class="text-[9px] text-outline">Dokun & Seç</span>
+          </div>
+
+          <div class="canvas-item absolute bottom-5 right-3 w-40 bg-surface-container p-2 pb-3 rounded-lg shadow-xl -rotate-1 cursor-pointer transition-transform hover:scale-105" style="z-index: 14;">
+            <div class="photo-slot relative w-full h-32 bg-surface-container-high rounded overflow-hidden group">
+              <img class="w-full h-full object-cover slot-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAscUhsBeafhRMZg-kL47SH_mFGNlt8VB8Schg_wRfk1DKBWW_XAO53aVw9h1IycPwDDEnwVN5q9u_iBNaKixg1dnqp8sgSvG8qE2wbw2_XK0Su_6Lx5k_RP_xssEkRlHczUOvea4TPZPH26cmVwb-8M64N-Z2B6aNs7kuaCU9bMl5NIIR1dV4SMttNXXu-j9-ghYjY12TI9_yNyQy0Xc5JWxuJZUQl-CLpjd0VHww"/>
+              <button class="upload-slot-btn absolute inset-0 bg-surface-container-lowest/70 backdrop-blur-xs flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-primary gap-0.5">
+                <span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+                <span class="text-[10px] font-semibold">Değiştir</span>
+              </button>
+            </div>
+            <div class="pt-2 text-center">
+              <span contenteditable="true" spellcheck="false" class="font-headline-md text-[13px] text-on-surface italic outline-none">nourish mind & body</span>
+            </div>
+          </div>
+        `
+      },
+      luxury: {
+        name: 'Lüks Como & Retreat',
+        title: 'Como Lüks İnzivası 2027',
+        html: `
+          <div class="canvas-item absolute top-3 inset-x-3 h-52 rounded-xl overflow-hidden shadow-2xl border border-secondary/30" style="z-index: 10;">
+            <img class="w-full h-full object-cover slot-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsqzq7gxUVDX4DtbcNUkeSvclC8Nj5zbhncqysRdAls34q65DntYBEjo4oA_2uC4fiXK_YGV-7l6WjJ7A0H2rOTWJXD3QOexHa8D8o01RYiY8ztIFfk9TMbRZNDytKU0_eA71-hDraZF2T1ih-4GuDo-i3YZ6S1GwzlTcUQPb3rFHneRmcEeqMhs1bV29Oi3b9xXGiBPUQpceGVdDMbMEGHUM3ubFkkKh3RjBUETc"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent flex flex-col justify-end p-3">
+              <span class="font-label-sm text-[10px] text-secondary uppercase tracking-widest">VILLA & RETREAT</span>
+              <h3 contenteditable="true" spellcheck="false" class="font-headline-md text-title-lg text-on-surface outline-none">Lake Como Sanctuary</h3>
+            </div>
+          </div>
+          <div class="canvas-item absolute bottom-20 left-4 w-44 bg-surface-container-high/95 p-3 rounded-xl border border-secondary/30 shadow-2xl" style="z-index: 15;">
+            <span class="font-label-sm text-[11px] text-secondary uppercase font-bold tracking-wider">AFFIRMATION</span>
+            <p contenteditable="true" spellcheck="false" class="font-headline-md text-[13px] text-on-surface italic leading-snug mt-1 outline-none">
+              "Luxury is quiet. Peace is the ultimate asset I protect and grow."
+            </p>
+          </div>
+          <div class="canvas-item absolute bottom-12 right-4 w-36 h-28 rounded-xl border-2 border-dashed border-secondary/60 bg-surface-container-low flex flex-col items-center justify-center cursor-pointer transition-transform hover:scale-105" style="z-index: 16;">
+            <span class="material-symbols-outlined text-secondary text-[24px]">add</span>
+            <span class="text-[11px] font-label-sm text-secondary font-semibold mt-1">Hayal Evi Ekle</span>
+          </div>
+        `
+      },
+      wellness: {
+        name: 'Wellness & Zihin Dinginliği',
+        title: 'Beden & Zihin Ritüelleri',
+        html: `
+          <div class="canvas-item absolute top-3 left-3 w-44 h-48 rounded-xl overflow-hidden shadow-2xl border border-tertiary/30" style="z-index: 11;">
+            <img class="w-full h-full object-cover slot-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPfQjT1J79y55xVPoog0r5xaYdKEYF_nCO6cB2kj-y2BNNXd0CBSIPjmS2NXCGB5o7YgnnJmclgwQ2vctkL9xr6KFUM1ViFp5HHesMtM95n4eKgvgDQndr4nkB2CZh4vf446GV2sKB4bs5K6WqOmD1DG2n7Sy0UtS4yBZF27SS_sX-JrJPj2KqoMZpmubjpfsnRrSIIysvNjyG6AHD191rXh1ff9ecYv8cP8c1jg0"/>
+            <div class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/80 p-2 text-center">
+              <span contenteditable="true" class="font-label-sm text-[11px] text-tertiary font-bold outline-none">MEDITATION 432HZ</span>
+            </div>
+          </div>
+          <div class="canvas-item absolute top-4 right-3 w-36 bg-surface-container-high p-2.5 rounded-xl shadow-lg border border-outline-variant/30" style="z-index: 12;">
+            <span class="text-secondary text-[10px] font-bold uppercase">GÜNLÜK HEDEF</span>
+            <p contenteditable="true" class="font-headline-md text-[13px] text-on-surface mt-1 outline-none">💧 3 Litre Su\n🧘‍♀️ 20 dk Nefes\n🌿 Bitkisel Beslenme</p>
+          </div>
+          <div class="canvas-item absolute bottom-12 inset-x-3 bg-secondary text-on-secondary p-3 rounded-xl shadow-xl text-center" style="z-index: 15;">
+            <span contenteditable="true" class="font-headline-md text-title-md italic font-semibold outline-none">"MY BODY IS MY SACRED TEMPLE"</span>
+          </div>
+        `
+      },
+      abundance: {
+        name: 'Finansal Bolluk 2027',
+        title: '2027 Bolluk & Başarı',
+        html: `
+          <div class="canvas-item absolute top-3 inset-x-3 bg-surface-container-high/90 border border-secondary/40 p-3 rounded-xl shadow-2xl" style="z-index: 12;">
+            <div class="flex items-center justify-between">
+              <span class="font-label-sm text-[11px] text-secondary uppercase font-bold tracking-widest">2027 NET WORTH GOAL</span>
+              <span class="material-symbols-outlined text-secondary text-[18px]">payments</span>
+            </div>
+            <div class="text-center py-2">
+              <h2 contenteditable="true" class="font-headline-md text-display-sm text-secondary font-bold tracking-tight outline-none">$250,000+</h2>
+              <span contenteditable="true" class="font-label-sm text-[12px] text-outline outline-none">Pasif Gelir & Dijital Girişimler</span>
+            </div>
+          </div>
+          <div class="canvas-item absolute bottom-16 left-3 w-40 h-32 rounded-xl border-2 border-dashed border-primary/50 bg-surface-container-low flex flex-col items-center justify-center cursor-pointer" style="z-index: 13;">
+            <span class="material-symbols-outlined text-primary text-[24px]">add_business</span>
+            <span class="text-[11px] text-primary font-semibold mt-1">Yatırım Görseli Ekle</span>
+          </div>
+          <div class="canvas-item absolute bottom-16 right-3 w-40 bg-surface-container p-2.5 rounded-xl border border-outline-variant/30 shadow-xl" style="z-index: 14;">
+            <span class="text-secondary text-[11px] font-bold">SCALE RULES:</span>
+            <p contenteditable="true" class="text-[11px] text-on-surface mt-1 leading-snug outline-none">• Değer üret, parayı çek\n• Zamanı kaldıraçla\n• Odaklan & derinleş</p>
+          </div>
+        `
+      },
+      minimal: {
+        name: 'Bento Minimal Monolith',
+        title: '2027 Minimalist Izgara',
+        html: `
+          <div class="canvas-item absolute top-3 left-3 right-3 grid grid-cols-2 gap-2 h-72" style="z-index: 10;">
+            <div class="rounded-xl bg-surface-container overflow-hidden relative border border-outline-variant/30 p-2 flex flex-col justify-between">
+              <span class="font-label-sm text-[10px] text-secondary font-bold uppercase">FOCUS</span>
+              <span contenteditable="true" class="font-headline-md text-[16px] text-on-surface italic outline-none">Deep Work 4h</span>
+            </div>
+            <div class="rounded-xl bg-surface-container-high overflow-hidden relative border border-outline-variant/30">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsqzq7gxUVDX4DtbcNUkeSvclC8Nj5zbhncqysRdAls34q65DntYBEjo4oA_2uC4fiXK_YGV-7l6WjJ7A0H2rOTWJXD3QOexHa8D8o01RYiY8ztIFfk9TMbRZNDytKU0_eA71-hDraZF2T1ih-4GuDo-i3YZ6S1GwzlTcUQPb3rFHneRmcEeqMhs1bV29Oi3b9xXGiBPUQpceGVdDMbMEGHUM3ubFkkKh3RjBUETc"/>
+            </div>
+            <div class="rounded-xl bg-surface-container-high overflow-hidden relative border border-outline-variant/30">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPfQjT1J79y55xVPoog0r5xaYdKEYF_nCO6cB2kj-y2BNNXd0CBSIPjmS2NXCGB5o7YgnnJmclgwQ2vctkL9xr6KFUM1ViFp5HHesMtM95n4eKgvgDQndr4nkB2CZh4vf446GV2sKB4bs5K6WqOmD1DG2n7Sy0UtS4yBZF27SS_sX-JrJPj2KqoMZpmubjpfsnRrSIIysvNjyG6AHD191rXh1ff9ecYv8cP8c1jg0"/>
+            </div>
+            <div class="rounded-xl bg-surface-container overflow-hidden relative border border-outline-variant/30 p-2 flex flex-col justify-between">
+              <span class="font-label-sm text-[10px] text-tertiary font-bold uppercase">HABIT</span>
+              <span contenteditable="true" class="font-headline-md text-[16px] text-on-surface italic outline-none">Calm Mind</span>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    const samplePhotos = [
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAscUhsBeafhRMZg-kL47SH_mFGNlt8VB8Schg_wRfk1DKBWW_XAO53aVw9h1IycPwDDEnwVN5q9u_iBNaKixg1dnqp8sgSvG8qE2wbw2_XK0Su_6Lx5k_RP_xssEkRlHczUOvea4TPZPH26cmVwb-8M64N-Z2B6aNs7kuaCU9bMl5NIIR1dV4SMttNXXu-j9-ghYjY12TI9_yNyQy0Xc5JWxuJZUQl-CLpjd0VHww',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAPfQjT1J79y55xVPoog0r5xaYdKEYF_nCO6cB2kj-y2BNNXd0CBSIPjmS2NXCGB5o7YgnnJmclgwQ2vctkL9xr6KFUM1ViFp5HHesMtM95n4eKgvgDQndr4nkB2CZh4vf446GV2sKB4bs5K6WqOmD1DG2n7Sy0UtS4yBZF27SS_sX-JrJPj2KqoMZpmubjpfsnRrSIIysvNjyG6AHD191rXh1ff9ecYv8cP8c1jg0',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuBsqzq7gxUVDX4DtbcNUkeSvclC8Nj5zbhncqysRdAls34q65DntYBEjo4oA_2uC4fiXK_YGV-7l6WjJ7A0H2rOTWJXD3QOexHa8D8o01RYiY8ztIFfk9TMbRZNDytKU0_eA71-hDraZF2T1ih-4GuDo-i3YZ6S1GwzlTcUQPb3rFHneRmcEeqMhs1bV29Oi3b9xXGiBPUQpceGVdDMbMEGHUM3ubFkkKh3RjBUETc'
+    ];
+
+    function initCanvasInteractions() {
+      const items = document.querySelectorAll('.canvas-item');
+      const gizmo = document.getElementById('selectionGizmo');
+      
+      items.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          // If clicked inside contenteditable, let user edit without moving gizmo
+          if (e.target.hasAttribute('contenteditable')) {
+            return;
+          }
+          e.stopPropagation();
+          items.forEach(el => el.classList.remove('ring-2', 'ring-primary'));
+          item.style.zIndex = parseInt(item.style.zIndex || 10) + 1;
+          
+          if (gizmo) {
+            gizmo.classList.remove('hidden');
+            const rect = item.getBoundingClientRect();
+            const parentRect = item.parentElement.getBoundingClientRect();
+            gizmo.style.top = (rect.top - parentRect.top - 4) + 'px';
+            gizmo.style.left = (rect.left - parentRect.left - 4) + 'px';
+            gizmo.firstElementChild.style.width = (rect.width + 8) + 'px';
+            gizmo.firstElementChild.style.height = (rect.height + 8) + 'px';
+          }
+        });
+      });
+
+      // Upload slot buttons & photo slots
+      document.querySelectorAll('.upload-slot-btn, .photo-slot').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const img = btn.closest('.photo-slot') ? btn.closest('.photo-slot').querySelector('.slot-img') : null;
+          if (img) {
+            const randomPhoto = samplePhotos[Math.floor(Math.random() * samplePhotos.length)];
+            img.src = randomPhoto;
+            img.classList.add('scale-105');
+            setTimeout(() => img.classList.remove('scale-105'), 200);
+          }
+        });
+      });
+    }
+
+    function applyTemplate(tplKey) {
+      const tpl = templatesData[tplKey] || templatesData.editorial;
+      const canvasLayers = document.getElementById('canvasLayers');
+      const activeTitle = document.getElementById('boardTitleText');
+      const layoutTag = document.getElementById('canvasActiveLayoutName');
+      
+      if (canvasLayers) {
+        canvasLayers.innerHTML = tpl.html;
+        initCanvasInteractions();
+      }
+      if (activeTitle) activeTitle.textContent = tpl.title;
+      if (layoutTag) layoutTag.textContent = tpl.name;
+
+      // Update chips highlight
+      document.querySelectorAll('.template-chip').forEach(chip => {
+        if (chip.getAttribute('data-template-id') === tplKey) {
+          chip.className = 'template-chip flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-[0_0_12px_rgba(192,193,255,0.3)] transition-all';
+        } else {
+          chip.className = 'template-chip flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high/70 hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors';
+        }
+      });
+    }
+
+    // Template chips row clicks
+    document.querySelectorAll('.template-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const tplKey = chip.getAttribute('data-template-id');
+        applyTemplate(tplKey);
+      });
+    });
+
+    // Drawer open/close
+    const drawer = document.getElementById('templatesDrawer');
+    const openDrawer = () => drawer && drawer.classList.remove('hidden');
+    const closeDrawer = () => drawer && drawer.classList.add('hidden');
+
+    document.getElementById('toggleTemplatesBtn')?.addEventListener('click', openDrawer);
+    document.getElementById('expandDrawerLink')?.addEventListener('click', openDrawer);
+    document.getElementById('bottomTabTemplates')?.addEventListener('click', openDrawer);
+    document.getElementById('closeTemplatesDrawer')?.addEventListener('click', closeDrawer);
+    document.getElementById('closeDrawerFooterBtn')?.addEventListener('click', closeDrawer);
+
+    // Drawer card apply
+    document.querySelectorAll('.drawer-template-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const tplKey = card.getAttribute('data-tpl-apply') || 'editorial';
+        applyTemplate(tplKey);
+        closeDrawer();
+      });
+    });
+
+    // Quick Add Stickers
+    document.querySelectorAll('.quick-add-sticker').forEach(stk => {
+      stk.addEventListener('click', () => {
+        const text = stk.querySelector('span:last-child')?.textContent || '"manifest"';
+        const canvasLayers = document.getElementById('canvasLayers');
+        if (canvasLayers) {
+          const newStk = document.createElement('div');
+          newStk.className = 'canvas-item absolute top-28 left-16 bg-secondary text-on-secondary px-3 py-1 rounded shadow-lg rotate-2 cursor-pointer transition-transform hover:scale-105';
+          newStk.style.zIndex = '25';
+          newStk.innerHTML = `<span contenteditable="true" class="font-headline-md text-[13px] italic font-semibold outline-none">${text}</span>`;
+          canvasLayers.appendChild(newStk);
+          initCanvasInteractions();
+        }
+      });
+    });
+
+    // Bottom bar quick action: Add Photo (+) 
+    document.getElementById('bottomTabAddPhoto')?.addEventListener('click', () => {
+      const canvasLayers = document.getElementById('canvasLayers');
+      if (canvasLayers) {
+        const newCard = document.createElement('div');
+        newCard.className = 'canvas-item absolute top-16 left-12 w-36 bg-surface-container p-1.5 pb-2 rounded shadow-2xl rotate-3 cursor-pointer transition-transform hover:scale-105';
+        newCard.style.zIndex = '26';
+        newCard.innerHTML = `
+          <div class="photo-slot relative w-full aspect-[4/3] rounded overflow-hidden bg-surface-container-high group">
+            <img class="w-full h-full object-cover slot-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAscUhsBeafhRMZg-kL47SH_mFGNlt8VB8Schg_wRfk1DKBWW_XAO53aVw9h1IycPwDDEnwVN5q9u_iBNaKixg1dnqp8sgSvG8qE2wbw2_XK0Su_6Lx5k_RP_xssEkRlHczUOvea4TPZPH26cmVwb-8M64N-Z2B6aNs7kuaCU9bMl5NIIR1dV4SMttNXXu-j9-ghYjY12TI9_yNyQy0Xc5JWxuJZUQl-CLpjd0VHww"/>
+          </div>
+          <div class="pt-1 text-center"><span contenteditable="true" class="font-headline-md text-[12px] italic outline-none">yeni anı</span></div>
+        `;
+        canvasLayers.appendChild(newCard);
+        initCanvasInteractions();
+      }
+    });
+
+    // Bottom bar quick action: Tape & Pin
+    document.getElementById('bottomTabTape')?.addEventListener('click', () => {
+      const canvasLayers = document.getElementById('canvasLayers');
+      if (canvasLayers) {
+        const tape = document.createElement('div');
+        tape.className = 'canvas-item absolute top-32 left-20 bg-secondary/90 text-on-secondary px-3 py-1 rounded-xs shadow-md -rotate-12 cursor-pointer font-bold text-[10px] tracking-widest uppercase';
+        tape.style.zIndex = '27';
+        tape.innerHTML = '<span contenteditable="true" class="outline-none">MAKE IT HAPPEN</span>';
+        canvasLayers.appendChild(tape);
+        initCanvasInteractions();
+      }
+    });
+
+    // Bottom bar quick action: Typography
+    document.getElementById('bottomTabTypography')?.addEventListener('click', () => {
+      const canvasLayers = document.getElementById('canvasLayers');
+      if (canvasLayers) {
+        const quote = document.createElement('div');
+        quote.className = 'canvas-item absolute top-24 left-10 bg-surface-container-high/95 p-2 rounded-lg border border-secondary/40 shadow-xl cursor-pointer';
+        quote.style.zIndex = '28';
+        quote.innerHTML = '<p contenteditable="true" class="font-headline-md text-title-md italic text-secondary outline-none">"Deliberate and boundless."</p>';
+        canvasLayers.appendChild(quote);
+        initCanvasInteractions();
+      }
+    });
+
+    // Magic Smart Layout button
+    document.getElementById('smartLayoutMagicBtn')?.addEventListener('click', () => {
+      const keys = ['editorial', 'polaroid', 'luxury', 'wellness', 'abundance', 'minimal'];
+      const nextKey = keys[Math.floor(Math.random() * keys.length)];
+      applyTemplate(nextKey);
+    });
+
+    // Dismiss Gizmo on outside click
+    document.addEventListener('click', (e) => {
+      const gizmo = document.getElementById('selectionGizmo');
+      if (gizmo && !e.target.closest('.canvas-item')) {
+        gizmo.classList.add('hidden');
+      }
+    });
+
+    // Initialize on load
+    initCanvasInteractions();
+  })();
+</script></div></main><nav class="fixed bottom-0 w-full z-50 pb-safe pointer-events-none" data-active-classes="text-primary font-semibold"><div class="px-margin pb-space-sm pt-space-xs flex justify-center"><div class="pointer-events-auto flex items-center justify-around w-full max-w-md h-16 px-space-sm rounded-full bg-surface-container/85 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.37)]"><a class="flex flex-col items-center justify-center w-16 h-12 text-on-surface-variant transition-colors hover:text-on-surface" data-path="panolarim" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-label-sm text-label-sm mt-0.5">Panolarım</span></a><a class="flex flex-col items-center justify-center w-16 h-12 text-on-surface-variant transition-colors hover:text-on-surface" data-path="afirmasyonlar" href="#"><span class="material-symbols-outlined text-[20px]">auto_awesome</span><span class="font-label-sm text-label-sm mt-0.5">Afirmasyon</span></a><a class="flex flex-col items-center justify-center w-16 h-12 text-on-surface-variant transition-colors hover:text-on-surface" data-path="studyo-kolaj" href="#"><span class="material-symbols-outlined text-[20px]">draw</span><span class="font-label-sm text-label-sm mt-0.5">Stüdyo</span></a><a class="flex flex-col items-center justify-center w-16 h-12 text-on-surface-variant transition-colors hover:text-on-surface" data-path="kaydedilenler" href="#"><span class="material-symbols-outlined text-[20px]">bookmark</span><span class="font-label-sm text-label-sm mt-0.5">Kaydedilen</span></a></div></div></nav></body></html>

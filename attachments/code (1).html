@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<meta content="mobile_tab" name="shell-type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&amp;family=Caveat:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        background-color: #0e1228;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+      .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .font-handwriting { font-family: 'Caveat', cursive; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#0e1228",
+            "surface": "#0e1228",
+            "surface-dim": "#0e1228",
+            "surface-bright": "#343850",
+            "surface-container-lowest": "#080c22",
+            "surface-container-low": "#161a30",
+            "surface-container": "#1a1e35",
+            "surface-container-high": "#252840",
+            "surface-container-highest": "#2f334b",
+            "surface-variant": "#2f334b",
+            "on-surface": "#dee0ff",
+            "on-surface-variant": "#c7c4d7",
+            "outline": "#908fa0",
+            "outline-variant": "#464554",
+            "primary": "#c0c1ff",
+            "primary-container": "#8083ff",
+            "on-primary": "#1000a9",
+            "on-primary-container": "#0d0096",
+            "secondary": "#e7c355",
+            "secondary-container": "#8e7100",
+            "secondary-fixed": "#ffe089",
+            "secondary-fixed-dim": "#e7c355",
+            "on-secondary": "#3d2f00",
+            "tertiary": "#7bd0ff",
+            "tertiary-container": "#009bd1",
+            "on-tertiary": "#00354a",
+            "error": "#ffb4ab",
+            "error-container": "#93000a"
+          },
+          fontFamily: {
+            "headline-lg": ["Playfair Display"],
+            "headline-md": ["Playfair Display"],
+            "headline-lg-mobile": ["Playfair Display"],
+            "title-lg": ["Inter"],
+            "title-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "label-sm": ["Inter"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen relative overflow-x-hidden select-none">
+<!-- Fixed Top Header -->
+<header class="fixed top-0 w-full z-40 pt-safe bg-surface/85 backdrop-blur-xl border-b border-white/5">
+<div class="h-16 px-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-2xl tracking-tight text-on-surface font-semibold">Veira</span>
+<span class="text-[10px] px-2 py-0.5 rounded-full bg-secondary/15 text-secondary border border-secondary/30 font-semibold tracking-wider">CANVAS PRO</span>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Dışa Aktar" class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:text-primary transition-colors bg-surface-container-high/60 active:scale-95">
+<span class="material-symbols-outlined text-[20px]">ios_share</span>
+</button>
+<button aria-label="Şablon Çekmecesini Aç" class="h-10 px-3 flex items-center gap-1.5 rounded-full bg-secondary/15 text-secondary border border-secondary/40 hover:bg-secondary/25 transition-all text-xs font-semibold" id="toggleDrawerBtn">
+<span class="material-symbols-outlined text-[18px]">view_quilt</span>
+<span>Şablonlar</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas Studio Underneath (Blurred Live Canvas Preview) -->
+<main class="flex-1 flex flex-col relative w-full px-4 pt-20 pb-28 bg-surface">
+<!-- Active Canvas Stage Mockup -->
+<div class="relative w-full rounded-2xl overflow-hidden bg-surface-container-lowest border border-white/10 p-3 shadow-2xl transition-all duration-300" id="mainCanvasStage">
+<!-- Active Canvas Badge -->
+<div class="flex items-center justify-between pb-2 border-b border-white/5 mb-3">
+<div class="flex items-center gap-1.5 text-xs text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+<span>Tuval 1: <strong>2027 Büyük Vizyon Panosu</strong></span>
+</div>
+<span class="text-[11px] text-outline font-mono">16:9 4K</span>
+</div>
+<!-- Vision Collage Board Mockup -->
+<div class="grid grid-cols-12 gap-2 h-[340px] bg-gradient-to-b from-[#14182e] to-[#0a0d1f] p-2 rounded-xl relative overflow-hidden">
+<div class="col-span-5 row-span-2 rounded-lg bg-surface-container/70 p-2.5 flex flex-col justify-between border border-white/10 relative overflow-hidden shadow-inner">
+<span class="font-headline-md text-3xl text-secondary font-bold tracking-tight">2027</span>
+<div class="rotate-[-2deg] bg-white text-black px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider w-max shadow-md">
+            SCALE, NOT SURVIVAL.
+          </div>
+<div class="flex items-center gap-1 text-[9px] text-tertiary">
+<span class="material-symbols-outlined text-[13px]">location_on</span> Como Gölü &amp; Milan
+          </div>
+</div>
+<div class="col-span-4 rounded-lg bg-surface-container-high/80 p-2 flex flex-col justify-between border border-white/5">
+<span class="text-[9px] font-mono text-secondary-fixed">$2.5M Net Varlık</span>
+<span class="font-serif italic text-xs text-on-surface">"Financial abundance."</span>
+</div>
+<div class="col-span-3 rounded-lg bg-surface-container flex flex-col items-center justify-center border border-dashed border-outline/30">
+<span class="material-symbols-outlined text-outline text-[20px]">add_a_photo</span>
+<span class="text-[8px] text-outline mt-1">+ Fotoğraf</span>
+</div>
+<div class="col-span-4 rounded-lg bg-primary/10 border border-primary/30 p-2 flex flex-col justify-center">
+<span class="font-handwriting text-primary text-base leading-tight">25,000 Substack</span>
+<span class="text-[9px] text-on-surface-variant">Yaratıcı Topluluk</span>
+</div>
+<div class="col-span-3 rounded-lg bg-surface-container-highest flex items-center justify-center p-2 text-center border border-white/5">
+<span class="text-[9px] font-serif uppercase tracking-widest text-secondary">Loving partnership.</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Interactive Backdrop Overlay (for closing drawer) -->
+<div class="fixed inset-0 bg-background/60 backdrop-blur-sm z-40 transition-opacity duration-300 opacity-100 pointer-events-auto" id="drawerBackdrop"></div>
+<!-- BottomSheet / Drawer Container (Interactive Modal State) -->
+<section class="fixed inset-x-0 bottom-0 z-50 flex flex-col max-h-[85vh] bg-[#141830]/98 backdrop-blur-2xl rounded-t-[32px] border-t border-white/15 shadow-[0_-16px_60px_rgba(0,0,0,0.85)] transition-transform duration-300 ease-out translate-y-0" id="templateDrawer">
+<!-- Top Ambient Celestial Glow Line -->
+<div class="w-full h-1 bg-gradient-to-r from-transparent via-secondary/70 via-primary-container to-transparent"></div>
+<!-- Sheet Header Section -->
+<div class="pt-3 px-4 pb-2 flex flex-col shrink-0 border-b border-white/5">
+<!-- Drag Handle Pill (Tap to toggle) -->
+<div class="w-full flex justify-center pb-2 cursor-pointer" id="dragPillHandle">
+<div class="w-14 h-1.5 rounded-full bg-outline-variant/80 hover:bg-outline transition-colors"></div>
+</div>
+<!-- Title & Close Row -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary shadow-[0_0_12px_rgba(231,195,85,0.9)] animate-pulse"></div>
+<h2 class="font-headline-lg-mobile text-2xl text-on-surface tracking-tight font-bold">Vizyon Şablonları</h2>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary/15 text-secondary border border-secondary/30 font-label-sm text-xs font-semibold">
+            30 Hazır Düzen (10 Yeni)
+          </span>
+</div>
+<button aria-label="Kapat" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-surface-bright flex items-center justify-center text-on-surface-variant hover:text-white transition-all active:scale-90" id="closeSheetBtn">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Editorial Description -->
+<p class="font-body-md text-xs text-on-surface-variant mt-1.5 line-clamp-1">
+        Bilişsel netlik, estetik tipografi kupürleri ve hazır odak yuvalı editoryal kolaj düzenleri.
+      </p>
+<!-- Category Filter Pills (Fully Clickable) -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-3 pb-2" id="filterPillsContainer">
+<button class="filter-pill shrink-0 px-3.5 py-1.5 rounded-full bg-secondary text-on-secondary font-semibold text-xs transition-all shadow-[0_0_12px_rgba(231,195,85,0.4)]" data-filter="all">
+          Tümü (30)
+        </button>
+<button class="filter-pill shrink-0 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-white font-medium text-xs transition-all" data-filter="journal">
+          Gazete &amp; Journal
+        </button>
+<button class="filter-pill shrink-0 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-white font-medium text-xs transition-all" data-filter="polaroid">
+          Polaroid &amp; Washi
+        </button>
+<button class="filter-pill shrink-0 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-white font-medium text-xs transition-all" data-filter="quote">
+          Tipografi &amp; Kupür
+        </button>
+<button class="filter-pill shrink-0 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-white font-medium text-xs transition-all" data-filter="bento">
+          Minimal &amp; Bento
+        </button>
+<button class="filter-pill shrink-0 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-white font-medium text-xs transition-all" data-filter="new">
+          ✨ 10 Yeni Eklenen
+        </button>
+</div>
+</div>
+<!-- Templates 2-Column Scrollable Grid (30 Distinct Editorial Templates) -->
+<div class="px-3.5 pt-3 pb-36 overflow-y-auto no-scrollbar grid grid-cols-2 gap-3 flex-1" id="templatesGrid">
+<!-- ================= 10 YENİ ŞABLON (REFERANS GÖRSELLERDEN BİREBİR İLHAMLI) ================= -->
+<!-- NEW 1: Scale Not Survival Editorial Cutout -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container-high p-2.5 shadow-xl ring-2 ring-secondary cursor-pointer transition-all active:scale-[0.98]" data-category="journal quote new" data-title="1. Scale &amp; Survival Journal">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-secondary/20 text-secondary font-label-sm text-[10px] font-bold uppercase tracking-wider">YENİ • REF #1</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[14px] font-bold">check</span>
+</div>
+</div>
+<!-- Wireframe Minyatür Vizyon Panosu -->
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10 relative overflow-hidden group">
+<div class="flex justify-between items-start gap-1">
+<div class="bg-white text-black px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-tighter shadow font-serif">
+              scale, not survival.
+            </div>
+<div class="w-9 h-7 rounded bg-surface-container-highest border border-white/15 flex items-center justify-center">
+<span class="text-[7px] text-tertiary font-mono">+Foto</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-1">
+<div class="bg-[#1e233d] rounded p-1 flex flex-col justify-center">
+<span class="font-handwriting text-[10px] text-yellow-300 leading-tight">25,000 Subs</span>
+<span class="font-handwriting text-[9px] text-white leading-none">$2 MILLION</span>
+</div>
+<div class="col-span-2 bg-[#171b33] rounded p-1 flex flex-col justify-between">
+<span class="font-serif italic text-[8px] text-on-surface">"Loving partnership."</span>
+<span class="text-[7px] text-secondary font-mono">VIAGGIO • Como</span>
+</div>
+</div>
+<div class="bg-blue-600/30 text-tertiary px-1 py-0.5 text-[7px] rounded text-center font-bold tracking-wide">
+            SUCCESS IS A STATE OF MIND
+          </div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">1. Scale &amp; Survival</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">12 Yuva • Gazete Kupürlü</p>
+</div>
+<!-- NEW 2: Substack & Million Abundance Board -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="quote new" data-title="2. $2M &amp; Substack Creator">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-label-sm text-[10px] font-bold uppercase">Bolluk</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10 relative overflow-hidden">
+<div class="bg-[#3e3518] border-l-2 border-secondary px-1.5 py-1 rounded">
+<span class="font-serif text-[8px] uppercase tracking-wider text-secondary-fixed block">Financial abundance.</span>
+<span class="text-[7px] text-on-surface-variant">"Abundance is my birthright"</span>
+</div>
+<div class="grid grid-cols-2 gap-1 my-1">
+<div class="bg-surface-container-high rounded p-1 flex flex-col items-center justify-center">
+<span class="font-handwriting text-xs text-secondary leading-tight">$2,000,000</span>
+<span class="text-[6px] text-outline">NET HEDEF</span>
+</div>
+<div class="bg-surface-container-high rounded p-1 flex flex-col items-center justify-center border border-dashed border-outline/30">
+<span class="material-symbols-outlined text-[12px] text-outline">add_photo_alternate</span>
+<span class="text-[7px] text-outline">+ Foto</span>
+</div>
+</div>
+<div class="bg-[#242b45] text-primary px-1.5 py-0.5 rounded text-[8px] italic font-serif">
+            "Speak it into existence."
+          </div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">2. $2M &amp; Substack</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">10 Yuva • Finans &amp; Yazarlık</p>
+</div>
+<!-- NEW 3: Chanel & Gucci Haute Editorial -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="journal quote new" data-title="3. Haute Couture Gazette">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 font-label-sm text-[10px] font-bold uppercase">Editoryal</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10 relative overflow-hidden">
+<div class="flex justify-between items-center border-b border-white/10 pb-1">
+<span class="font-serif font-black tracking-widest text-[10px] text-white">CHANEL</span>
+<span class="text-[7px] font-mono tracking-tighter text-outline">MIU MIU • GUCCI</span>
+</div>
+<div class="grid grid-cols-3 gap-1 h-14 my-1">
+<div class="col-span-2 rounded bg-surface-container-high flex items-center justify-center border border-dashed border-outline/30">
+<span class="text-[8px] text-on-surface-variant">+ Portre Kupürü</span>
+</div>
+<div class="rounded bg-[#20253f] p-1 flex flex-col justify-around">
+<span class="font-serif italic text-[7px] text-secondary">Vogue Look</span>
+<span class="text-[7px] text-tertiary">Paris 27</span>
+</div>
+</div>
+<div class="bg-white/10 px-1.5 py-0.5 rounded text-[7px] font-mono text-center tracking-wider text-on-surface">
+            MAKE IT HAPPEN.
+          </div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">3. Haute Couture</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">Moda Kupürleri • 8 Yuva</p>
+</div>
+<!-- NEW 4: To Travel Is To Live (Washi Polaroid Aesthetic) -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="polaroid new" data-title="4. To Travel Is To Live">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-tertiary/20 text-tertiary font-label-sm text-[10px] font-bold uppercase">Seyahat</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10 relative overflow-hidden">
+<!-- Washi tape at top -->
+<div class="self-center w-14 h-2 bg-yellow-500/40 rounded -rotate-2 mb-1"></div>
+<div class="flex items-center gap-1.5">
+<div class="w-16 h-20 bg-stone-100 text-stone-900 rounded-sm p-1 rotate-[-3deg] shadow-md flex flex-col justify-between">
+<div class="w-full h-12 bg-stone-300 rounded-xs flex items-center justify-center">
+<span class="material-symbols-outlined text-stone-600 text-[12px]">flight_takeoff</span>
+</div>
+<span class="text-[6px] font-serif text-center font-bold">Trevi • Roma</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<span class="font-serif italic text-[9px] text-white">to travel is to live</span>
+<span class="text-[7px] text-yellow-300 font-mono bg-yellow-950/60 px-1 py-0.5 rounded">2027 FLOW</span>
+<div class="h-6 rounded bg-surface-container-high border border-dashed border-outline/30 flex items-center justify-center">
+<span class="text-[7px] text-outline">+ Manzara</span>
+</div>
+</div>
+</div>
+<div class="text-[7px] text-on-surface-variant font-mono truncate">
+            "DREAM BIG, WORK HARD."
+          </div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">4. Travel &amp; Washi</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">6 Polaroid • Washi Bantlı</p>
+</div>
+<!-- NEW 5: Daily Movement & Vitality Ritual -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="quote new" data-title="5. Daily Movement &amp; Rituals">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 font-label-sm text-[10px] font-bold uppercase">Sağlık</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10 relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-serif text-[9px] font-bold text-white uppercase tracking-tight">Daily movement.</span>
+<span class="material-symbols-outlined text-secondary text-[14px]">self_improvement</span>
+</div>
+<div class="grid grid-cols-2 gap-1.5 my-1">
+<div class="bg-surface-container rounded p-1 flex flex-col justify-center border border-white/5">
+<span class="text-[7px] text-emerald-400 font-semibold">• Pilates &amp; Run</span>
+<span class="text-[6px] text-outline">10K Adım Günlük</span>
+</div>
+<div class="bg-surface-container rounded p-1 flex flex-col justify-center border border-white/5">
+<span class="text-[7px] text-secondary font-semibold">• Matcha Sabahı</span>
+<span class="text-[6px] text-outline">Sessiz Meditasyon</span>
+</div>
+</div>
+<div class="bg-[#1b253b] text-tertiary px-1 py-0.5 rounded text-[7px] text-center font-serif italic">
+            "Enjoy the journey."
+          </div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">5. Daily Movement</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">8 Yuva • Sağlık &amp; Alışkanlık</p>
+</div>
+<!-- NEW 6: Girl Do It For You (Aura Glow Board) -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="quote new" data-title="6. Girl Do It For You (Aura)">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-pink-500/20 text-pink-300 font-label-sm text-[10px] font-bold uppercase">Aura</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col items-center justify-between border border-white/10 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-tr from-pink-500/10 via-purple-600/15 to-transparent"></div>
+<div class="w-14 h-14 rounded-full bg-gradient-to-tr from-pink-500 to-indigo-500 p-0.5 mt-1 shadow-[0_0_15px_rgba(236,72,153,0.4)] flex items-center justify-center">
+<div class="w-full h-full rounded-full bg-[#090d21] flex flex-col items-center justify-center text-center p-1">
+<span class="font-serif italic text-[7px] text-pink-200">Girl, do it</span>
+<span class="font-serif font-bold text-[8px] text-white">FOR YOU.</span>
+</div>
+</div>
+<div class="w-full grid grid-cols-2 gap-1 z-10">
+<div class="h-6 rounded bg-surface-container border border-dashed border-outline/30 flex items-center justify-center text-[7px] text-outline">
+              + Öz Sevgi
+            </div>
+<div class="h-6 rounded bg-surface-container border border-dashed border-outline/30 flex items-center justify-center text-[7px] text-outline">
+              + Ritüel
+            </div>
+</div>
+<span class="text-[7px] text-secondary font-mono z-10">528Hz • Yüksek Frekans</span>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">6. Girl Do It For You</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">Aura Gradient • 9 Yuva</p>
+</div>
+<!-- NEW 7: Como Lake Sanctuary & Viaggio -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="journal new" data-title="7. Como Lake &amp; Viaggio">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 font-label-sm text-[10px] font-bold uppercase">Riviera</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10 relative overflow-hidden">
+<div class="flex justify-between items-center">
+<span class="font-serif italic text-xs text-white">VIAGGIO</span>
+<span class="bg-cyan-900/60 text-cyan-200 text-[7px] px-1.5 py-0.5 rounded font-mono">LAKE COMO</span>
+</div>
+<div class="grid grid-cols-3 gap-1 h-14 my-1">
+<div class="rounded bg-surface-container-high flex flex-col items-center justify-center border border-dashed border-white/10">
+<span class="material-symbols-outlined text-[12px] text-tertiary">sailing</span>
+<span class="text-[6px] text-outline">Tekne</span>
+</div>
+<div class="rounded bg-surface-container-high flex flex-col items-center justify-center border border-dashed border-white/10">
+<span class="material-symbols-outlined text-[12px] text-secondary">villa</span>
+<span class="text-[6px] text-outline">Villa</span>
+</div>
+<div class="rounded bg-surface-container-high flex flex-col items-center justify-center border border-dashed border-white/10">
+<span class="material-symbols-outlined text-[12px] text-amber-300">wine_bar</span>
+<span class="text-[6px] text-outline">Aperitivo</span>
+</div>
+</div>
+<div class="bg-surface-container px-1 py-0.5 rounded text-[7px] text-center text-outline-variant font-mono">
+            "Slow Italian Days • 2027"
+          </div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">7. Como &amp; Viaggio</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">İtalyan Mood • 11 Yuva</p>
+</div>
+<!-- NEW 8: 2026/2027 Goals Balance Washi Board -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="polaroid new" data-title="8. Goals &amp; Balance Board">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-yellow-500/20 text-yellow-300 font-label-sm text-[10px] font-bold uppercase">Balance</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10 relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="bg-yellow-400 text-stone-900 text-[8px] font-bold px-1.5 py-0.5 rounded-sm shadow rotate-1 font-mono">
+              2 0 2 7 GOALS
+            </span>
+<span class="text-[8px] font-handwriting text-pink-300">balance &amp; family</span>
+</div>
+<div class="grid grid-cols-2 gap-1 my-1">
+<div class="bg-surface-container-high rounded p-1 flex flex-col">
+<span class="text-[7px] text-secondary font-bold">READ LIST</span>
+<span class="text-[6px] text-outline">12 Kitap/Yıl</span>
+</div>
+<div class="bg-surface-container-high rounded p-1 flex flex-col">
+<span class="text-[7px] text-tertiary font-bold">HEALTH</span>
+<span class="text-[6px] text-outline">Yüksek Enerji</span>
+</div>
+</div>
+<div class="w-full text-center text-[7px] text-on-surface-variant border-t border-white/5 pt-1">
+            "Keep priorities straight."
+          </div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">8. Goals Balance</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">Washi Bant • Hedef Listesi</p>
+</div>
+<!-- NEW 9: Slow Mornings & Matcha Rituals -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="bento new" data-title="9. Slow Mornings &amp; Matcha">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-label-sm text-[10px] font-bold uppercase">Zen Mood</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10 relative overflow-hidden">
+<span class="font-serif italic text-[9px] text-emerald-300">Slow mornings &amp; Matcha</span>
+<div class="grid grid-cols-2 gap-1 h-16">
+<div class="rounded bg-surface-container flex flex-col items-center justify-center p-1 border border-white/5">
+<span class="material-symbols-outlined text-[13px] text-emerald-400">local_cafe</span>
+<span class="text-[6px] text-on-surface-variant mt-0.5">Matcha Latte</span>
+</div>
+<div class="rounded bg-surface-container flex flex-col items-center justify-center p-1 border border-white/5">
+<span class="material-symbols-outlined text-[13px] text-secondary">menu_book</span>
+<span class="text-[6px] text-on-surface-variant mt-0.5">15 Dk Günlük</span>
+</div>
+</div>
+<div class="text-[7px] text-outline text-center">Bento Düzeni • 4 Bölme</div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">9. Slow Mornings</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">Sessiz Sabahlar • 6 Yuva</p>
+</div>
+<!-- NEW 10: Speak It Into Existence Monolith -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="quote new" data-title="10. Speak It Into Existence">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 font-label-sm text-[10px] font-bold uppercase">Manifest</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10 relative overflow-hidden text-center">
+<div class="bg-primary/20 text-primary py-1 px-1 rounded border border-primary/30">
+<span class="font-serif font-bold text-[8px] block">"SPEAK IT INTO EXISTENCE."</span>
+</div>
+<div class="h-14 rounded bg-surface-container-high flex flex-col items-center justify-center border border-dashed border-outline/30">
+<span class="text-[8px] text-secondary font-mono">$100,000 / Ay</span>
+<span class="text-[6px] text-outline">Hedef Çeki Yuvası</span>
+</div>
+<span class="font-handwriting text-xs text-secondary-fixed">Make it happen today.</span>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">10. Speak It Into Being</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">Büyük Afirmasyon • 8 Yuva</p>
+</div>
+<!-- ================= MEVCUT 20 ŞABLON (GELİŞTİRİLMİŞ & STİLİZE EDİLMİŞ) ================= -->
+<!-- 11: 2027 Editorial Journal Original -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="journal" data-title="11. 2027 Editorial Journal">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-secondary/20 text-secondary font-label-sm text-[10px] font-bold uppercase">Klasik</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-1.5 grid grid-cols-3 gap-1 overflow-hidden border border-white/10">
+<div class="col-span-2 row-span-2 rounded bg-surface-container p-1.5 flex flex-col justify-between">
+<span class="font-headline-md text-sm text-secondary font-bold">2027</span>
+<span class="font-serif italic text-[7px] text-outline">Editorial Cover</span>
+</div>
+<div class="rounded bg-surface-container-high flex items-center justify-center border border-dashed border-outline/30">
+<span class="text-[7px] text-outline">+Foto</span>
+</div>
+<div class="rounded bg-surface-container-highest flex items-center justify-center border border-dashed border-outline/30">
+<span class="text-[7px] text-outline">+Foto</span>
+</div>
+<div class="col-span-3 rounded bg-surface-container-high/60 h-4 flex items-center px-1">
+<span class="text-[7px] text-tertiary">"Scale, not survival."</span>
+</div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">11. 2027 Editorial</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">12 Yuva • 4 Kupür</p>
+</div>
+<!-- 12: Polaroid & Washi Tape -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="polaroid" data-title="12. Polaroid &amp; Washi Tape">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-rose-500/20 text-rose-300 font-label-sm text-[10px] font-bold uppercase">Polaroid</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col items-center justify-center relative overflow-hidden border border-white/10">
+<div class="w-20 h-24 bg-surface-variant rounded shadow-lg rotate-[-4deg] p-1 flex flex-col">
+<div class="w-full h-14 bg-[#090d21] rounded-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-outline text-[14px]">photo_camera</span>
+</div>
+<span class="text-[7px] text-center text-on-surface-variant mt-1">Gündoğumu</span>
+</div>
+<div class="absolute top-2 w-8 h-2 bg-secondary/50 rounded-full rotate-6"></div>
+<div class="absolute bottom-2 right-3 w-12 h-2.5 bg-primary/30 rounded rotate-[-12deg]"></div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">12. Polaroid &amp; Washi</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">9 Polaroid • 6 Bant</p>
+</div>
+<!-- 13: Como Gölü Bento -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="bento" data-title="13. Como Gölü Bento">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-tertiary-container/30 text-tertiary font-label-sm text-[10px] font-bold uppercase">Bento</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-1.5 grid grid-cols-2 gap-1 overflow-hidden border border-white/10">
+<div class="rounded bg-surface-container-high p-1 flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-tertiary text-[14px]">sailing</span>
+<span class="text-[7px] text-on-surface font-semibold">Como Gölü</span>
+</div>
+<div class="grid grid-rows-2 gap-1">
+<div class="rounded bg-surface-container flex items-center justify-center border border-dashed border-outline/30">
+<span class="text-[6px] text-outline">+Foto</span>
+</div>
+<div class="rounded bg-surface-container-highest flex items-center justify-center border border-dashed border-outline/30">
+<span class="text-[6px] text-outline">+Foto</span>
+</div>
+</div>
+<div class="col-span-2 rounded bg-surface-container-high flex items-center justify-center">
+<span class="text-[7px] text-secondary">Aura &amp; Huzur</span>
+</div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">13. Como Gölü Bento</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">10 Yuva • İtalyan Mood</p>
+</div>
+<!-- 14: Scale Not Survival Quote -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="quote" data-title="14. Scale Not Survival Typography">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-surface-container-highest text-on-surface-variant font-label-sm text-[10px]">Tipografi</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10">
+<div class="bg-surface-container-highest rounded p-1 text-center">
+<span class="font-serif italic text-[9px] text-on-surface">"Scale, not survival."</span>
+</div>
+<div class="grid grid-cols-3 gap-1 h-14">
+<div class="rounded bg-surface-container flex items-center justify-center border border-dashed border-outline/30"><span class="text-[6px] text-outline">+Foto</span></div>
+<div class="rounded bg-surface-container flex items-center justify-center border border-dashed border-outline/30"><span class="text-[6px] text-outline">+Foto</span></div>
+<div class="rounded bg-surface-container flex items-center justify-center border border-dashed border-outline/30"><span class="text-[6px] text-outline">+Foto</span></div>
+</div>
+<span class="text-[7px] text-outline text-right">Manifest Modülü</span>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">14. Scale Not Survival</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">14 Yuva • Tipografi</p>
+</div>
+<!-- 15: Financial Abundance $2.5M -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="quote" data-title="15. Financial Abundance $2.5M">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-secondary-container text-secondary-fixed font-label-sm text-[10px] font-bold uppercase">Zenginlik</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10">
+<div class="flex items-center justify-between">
+<span class="text-[7px] text-secondary font-serif">Milyoner Zihniyeti</span>
+<span class="material-symbols-outlined text-secondary text-[14px]">paid</span>
+</div>
+<div class="h-14 rounded bg-surface-container flex flex-col items-center justify-center">
+<span class="font-headline-md text-xs text-on-surface font-bold">$2.500.000</span>
+<span class="text-[6px] text-outline">Net Varlık Hedefi</span>
+</div>
+<span class="text-[6px] text-outline-variant font-mono text-center">Yatırım &amp; Varlık Paneli</span>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">15. Financial Abundance</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">12 Yuva • Çek &amp; Hedef</p>
+</div>
+<!-- 16: Tri-Zone Aesthetic (Beden - Zihin - Ruh) -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="bento" data-title="16. Tri-Zone Aesthetic">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-surface-container-highest text-on-surface-variant font-label-sm text-[10px]">3 Bölge</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-1.5 grid grid-cols-3 gap-1 border border-white/10">
+<div class="rounded bg-surface-container flex items-center justify-center">
+<span class="text-[7px] -rotate-90 text-outline font-semibold">BEDEN</span>
+</div>
+<div class="rounded bg-surface-container-high flex items-center justify-center">
+<span class="text-[7px] -rotate-90 text-secondary font-semibold">ZİHİN</span>
+</div>
+<div class="rounded bg-surface-container-highest flex items-center justify-center">
+<span class="text-[7px] -rotate-90 text-tertiary font-semibold">RUH</span>
+</div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">16. Tri-Zone Aesthetic</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">9 Yuva • Dengeli Akış</p>
+</div>
+<!-- 17: Minimalist Pure Grid 9 Equal -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="bento" data-title="17. Minimalist Pure Grid">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-surface-container-highest text-on-surface-variant font-label-sm text-[10px]">Minimal</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-1.5 grid grid-cols-3 grid-rows-3 gap-1 border border-white/10">
+<div class="rounded bg-surface-container"></div>
+<div class="rounded bg-surface-container-high"></div>
+<div class="rounded bg-surface-container"></div>
+<div class="rounded bg-surface-container-high"></div>
+<div class="rounded bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[12px]">lens</span>
+</div>
+<div class="rounded bg-surface-container-high"></div>
+<div class="rounded bg-surface-container"></div>
+<div class="rounded bg-surface-container-high"></div>
+<div class="rounded bg-surface-container"></div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">17. Minimalist Pure Grid</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">9 Eşit Yuva • Simetrik</p>
+</div>
+<!-- 18: Golden Hour Memories -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="journal" data-title="18. Golden Hour Memories">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-secondary-container/40 text-secondary font-label-sm text-[10px]">Sıcak Işık</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between relative overflow-hidden border border-white/10">
+<div class="absolute inset-0 bg-gradient-to-tr from-secondary/15 via-transparent to-primary/10"></div>
+<div class="flex justify-between items-center z-10">
+<span class="font-serif italic text-[10px] text-secondary">Golden Hour</span>
+<span class="material-symbols-outlined text-secondary text-[14px]">wb_twilight</span>
+</div>
+<div class="h-14 rounded bg-surface-container/80 flex items-center justify-center z-10 border border-dashed border-outline/30">
+<span class="text-[7px] text-outline">+ Akdeniz Işığı</span>
+</div>
+<span class="text-[7px] text-outline-variant z-10 font-mono">Riviera Sunset Mood</span>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">18. Golden Hour</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">11 Yuva • Sıcak Tonlar</p>
+</div>
+<!-- 19: Dream Life Cosmic Vision -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="quote" data-title="19. Dream Life Cosmic Vision">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-primary/20 text-primary font-label-sm text-[10px]">Kozmik</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col items-center justify-center relative border border-white/10">
+<div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center shadow-inner border border-primary/30">
+<span class="material-symbols-outlined text-primary text-[20px]">bedtime</span>
+</div>
+<span class="text-[7px] text-on-surface-variant mt-2 font-serif italic">Gelecek Benliğim • 2027</span>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">19. Dream Life Vision</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">15 Yuva • Rüyalar &amp; Amaç</p>
+</div>
+<!-- 20: Creative Design Studio -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="bento" data-title="20. Creative Design Studio">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-surface-container-highest text-on-surface-variant font-label-sm text-[10px]">Yaratıcı</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-1.5 flex flex-col gap-1 border border-white/10">
+<div class="h-8 rounded bg-surface-container flex items-center justify-around">
+<span class="material-symbols-outlined text-tertiary text-[12px]">palette</span>
+<span class="material-symbols-outlined text-primary text-[12px]">brush</span>
+<span class="material-symbols-outlined text-secondary text-[12px]">interests</span>
+</div>
+<div class="grid grid-cols-2 gap-1 flex-1">
+<div class="rounded bg-surface-container-high border border-dashed border-outline/30 flex items-center justify-center text-[6px] text-outline">+Mood</div>
+<div class="rounded bg-surface-container-highest border border-dashed border-outline/30 flex items-center justify-center text-[6px] text-outline">+Font</div>
+</div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">20. Creative Studio</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">8 Yuva • Portfolyo</p>
+</div>
+<!-- 21: Spiritual Balance 432Hz -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="quote" data-title="21. Spiritual Balance 432Hz">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-tertiary-container/30 text-tertiary font-label-sm text-[10px]">432Hz</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col items-center justify-between border border-white/10">
+<span class="material-symbols-outlined text-tertiary text-[20px]">graphic_eq</span>
+<span class="font-serif italic text-[10px] text-on-surface">İçsel Dinginlik</span>
+<span class="text-[7px] text-outline">Meditasyon &amp; Çakralar</span>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">21. Spiritual Balance</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">7 Yuva • Frekans Notları</p>
+</div>
+<!-- 22: Scrapbook Serbest Asimetrik -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="polaroid" data-title="22. Scrapbook Serbest Kolaj">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-secondary-container/30 text-secondary font-label-sm text-[10px]">Serbest</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 relative overflow-hidden border border-white/10">
+<div class="absolute top-2 left-2 w-14 h-16 rounded bg-surface-container rotate-[-6deg] flex items-center justify-center border border-dashed border-outline/30">
+<span class="text-[6px] text-outline">+Kupür</span>
+</div>
+<div class="absolute bottom-2 right-2 w-16 h-14 rounded bg-surface-container-high rotate-[8deg] flex items-center justify-center border border-dashed border-outline/30">
+<span class="text-[6px] text-outline">+Not</span>
+</div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">22. Scrapbook Serbest</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">Asimetrik Katmanlar</p>
+</div>
+<!-- 23: Luxury Dark Vault -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="bento" data-title="23. Luxury Dark Vault">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-surface-container-highest text-on-surface-variant font-label-sm text-[10px]">Nocturnal</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-center items-center border border-white/10">
+<div class="w-full h-20 rounded bg-surface-container-low flex flex-col justify-center items-center border border-primary/30">
+<span class="material-symbols-outlined text-primary text-[18px]">lock_open_right</span>
+<span class="text-[7px] text-primary mt-1 font-mono">ÖZEL KASA • 2027</span>
+</div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">23. Luxury Dark Vault</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">10 Yuva • Gizli Hedefler</p>
+</div>
+<!-- 24: Sun & Mediterranean -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="journal" data-title="24. Sun &amp; Mediterranean">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-tertiary-container/30 text-tertiary font-label-sm text-[10px]">Seyahat</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-1.5 grid grid-cols-2 gap-1 border border-white/10">
+<div class="col-span-2 rounded bg-surface-container flex items-center justify-center">
+<span class="font-serif italic text-[9px] text-tertiary">Akdeniz Kaçamağı</span>
+</div>
+<div class="rounded bg-surface-container-high border border-dashed border-outline/30 flex items-center justify-center text-[6px] text-outline">+Deniz</div>
+<div class="rounded bg-surface-container-highest border border-dashed border-outline/30 flex items-center justify-center text-[6px] text-outline">+Otel</div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">24. Mediterranean</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">12 Yuva • Tatil &amp; Keşif</p>
+</div>
+<!-- 25: Deep Focus Monolith -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="bento" data-title="25. Deep Focus Monolith">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-surface-container-highest text-on-surface-variant font-label-sm text-[10px]">Odak</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col items-center justify-center border border-white/10">
+<div class="w-20 h-24 rounded bg-surface-container-high flex flex-col justify-center items-center border border-secondary/30">
+<span class="font-serif font-bold text-[10px] text-secondary">TEK HEDEF</span>
+<span class="text-[6px] text-outline mt-1 font-mono">Derin Odaklanma</span>
+</div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">25. Deep Focus</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">1 Büyük Odak • 4 Destek</p>
+</div>
+<!-- 26: Love Sanctuary & Partnership -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="quote" data-title="26. Love Sanctuary &amp; Partnership">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-rose-500/20 text-rose-300 font-label-sm text-[10px]">Sevgi</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-around items-center border border-white/10">
+<span class="material-symbols-outlined text-rose-400 text-[20px]">favorite</span>
+<span class="font-serif italic text-[8px] text-on-surface">"Loving partnership."</span>
+<span class="text-[7px] text-outline">Bağlar &amp; Ev Huzuru</span>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">26. Love Sanctuary</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">8 Yuva • İlişki &amp; Bağlar</p>
+</div>
+<!-- 27: High Frequency 528Hz -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="quote" data-title="27. High Frequency 528Hz">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-secondary-container/40 text-secondary font-label-sm text-[10px]">Frekans</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-center items-center border border-white/10">
+<span class="font-headline-md text-sm text-secondary font-bold">528 Hz</span>
+<span class="text-[7px] text-outline mt-1 font-mono">Mucizevi Titreşim</span>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">27. High Frequency</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">6 Yuva • Afirmasyonlar</p>
+</div>
+<!-- 28: Magazine Cover Veira -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="journal" data-title="28. Magazine Cover Editorial">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-surface-container-highest text-on-surface-variant font-label-sm text-[10px]">Vogue Stili</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-1.5 flex flex-col justify-between border border-white/10">
+<span class="font-serif text-xs text-on-surface font-black tracking-widest text-center">VEIRA</span>
+<div class="h-14 rounded bg-surface-container flex items-center justify-center border border-dashed border-outline/30">
+<span class="text-[7px] text-secondary font-serif">"Yılın İnsanı"</span>
+</div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">28. Magazine Cover</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">Kapak • Başlıklar</p>
+</div>
+<!-- 29: Mindful Habit Wheel -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="bento" data-title="29. Mindful Habit Wheel">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-primary/20 text-primary font-label-sm text-[10px]">Döngü</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col items-center justify-center border border-white/10">
+<div class="w-14 h-14 rounded-full border-2 border-primary/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[16px]">published_with_changes</span>
+</div>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">29. Habit Wheel</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">8 Alışkanlık Yuvası</p>
+</div>
+<!-- 30: Infinite Horizon Collage -->
+<div class="template-card relative flex flex-col rounded-2xl bg-surface-container p-2.5 hover:bg-surface-container-high transition-all cursor-pointer shadow-lg active:scale-[0.98]" data-category="polaroid" data-title="30. Infinite Horizon Collage">
+<div class="flex items-center justify-between pb-1.5">
+<span class="px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 font-label-sm text-[10px]">Ufuk</span>
+<div class="card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">bookmark_border</span>
+</div>
+</div>
+<div class="w-full h-36 rounded-xl bg-[#090d21] p-2 flex flex-col justify-between border border-white/10">
+<span class="font-serif italic text-[8px] text-yellow-300">"The best is yet to come"</span>
+<div class="grid grid-cols-2 gap-1 h-12">
+<div class="rounded bg-surface-container flex items-center justify-center border border-dashed border-outline/30"><span class="text-[6px] text-outline">+Manzara</span></div>
+<div class="rounded bg-surface-container-high flex items-center justify-center border border-dashed border-outline/30"><span class="text-[6px] text-outline">+Portre</span></div>
+</div>
+<span class="text-[6px] text-outline text-right">2027 Ufku</span>
+</div>
+<h3 class="font-title-md text-sm font-semibold text-on-surface mt-2 truncate">30. Infinite Horizon</h3>
+<p class="font-body-sm text-[11px] text-on-surface-variant truncate">10 Yuva • Panoramik</p>
+</div>
+</div>
+<!-- Bottom Sticky Apply Action Area -->
+<div class="fixed bottom-0 inset-x-0 p-4 bg-[#141830]/95 backdrop-blur-2xl border-t border-white/10 flex flex-col gap-2 z-50 shadow-[0_-8px_30px_rgba(0,0,0,0.6)]">
+<div class="flex items-center justify-between px-1">
+<span class="text-xs text-on-surface-variant font-medium">Seçilen Düzen:</span>
+<span class="font-title-md text-sm font-bold text-secondary truncate max-w-[220px]" id="selectedTemplateTitle">
+          1. Scale &amp; Survival Journal
+        </span>
+</div>
+<button class="w-full h-12 rounded-full bg-gradient-to-r from-secondary-fixed via-secondary to-secondary-fixed-dim text-on-secondary font-semibold text-sm flex items-center justify-center gap-2 shadow-[0_0_24px_rgba(231,195,85,0.45)] active:scale-[0.98] transition-all" id="applyTemplateBtn">
+<span class="material-symbols-outlined text-[20px]">view_quilt</span>
+<span id="applyBtnText">Bu Şablonu Kanvasa Uygula</span>
+</button>
+</div>
+</section>
+<!-- Interactive Toast Notification -->
+<div class="fixed top-20 inset-x-4 mx-auto max-w-sm z-50 pointer-events-none transform -translate-y-8 opacity-0 transition-all duration-300 flex items-center gap-2.5 p-3.5 rounded-2xl bg-surface-bright/95 text-on-surface border border-secondary/50 shadow-[0_10px_35px_rgba(0,0,0,0.6)]" id="toastSuccess">
+<div class="w-7 h-7 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-white" id="toastTitle">Şablon Kanvasa Yüklendi ✨</span>
+<span class="text-[10px] text-on-surface-variant" id="toastMessage">12 Yuvalı gazete &amp; kupür düzeni aktarıldı.</span>
+</div>
+</div>
+<!-- Bottom Navigation Bar (Shell standard) -->
+<nav class="fixed bottom-0 w-full z-30 pb-safe pointer-events-none" data-active-classes="text-primary font-semibold">
+<div class="px-4 pb-2 pt-1 flex justify-center">
+<div class="pointer-events-auto flex items-center justify-around w-full max-w-md h-16 px-2 rounded-full bg-surface-container/90 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.45)]">
+<a class="flex flex-col items-center justify-center w-16 h-12 text-on-surface-variant transition-colors hover:text-on-surface" data-path="panolarim" href="#">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+<span class="text-[10px] mt-0.5">Panolarım</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-12 text-on-surface-variant transition-colors hover:text-on-surface" data-path="afirmasyonlar" href="#">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span class="text-[10px] mt-0.5">Afirmasyon</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-12 text-secondary font-semibold transition-colors" data-path="studyo-kolaj" href="#">
+<span class="material-symbols-outlined text-[20px]">draw</span>
+<span class="text-[10px] mt-0.5">Stüdyo</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 h-12 text-on-surface-variant transition-colors hover:text-on-surface" data-path="kaydedilenler" href="#">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+<span class="text-[10px] mt-0.5">Kaydedilen</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Interactive JavaScript -->
+<script>
+    (function () {
+      const drawer = document.getElementById('templateDrawer');
+      const backdrop = document.getElementById('drawerBackdrop');
+      const closeBtn = document.getElementById('closeSheetBtn');
+      const dragPill = document.getElementById('dragPillHandle');
+      const toggleDrawerBtn = document.getElementById('toggleDrawerBtn');
+      const cards = document.querySelectorAll('.template-card');
+      const selectedTitle = document.getElementById('selectedTemplateTitle');
+      const applyBtn = document.getElementById('applyTemplateBtn');
+      const applyBtnText = document.getElementById('applyBtnText');
+      const filterPills = document.querySelectorAll('.filter-pill');
+      const toast = document.getElementById('toastSuccess');
+      const toastTitle = document.getElementById('toastTitle');
+      const toastMessage = document.getElementById('toastMessage');
+
+      let isDrawerOpen = true;
+
+      // 1. Drawer open/close handler
+      function setDrawerState(open) {
+        isDrawerOpen = open;
+        if (open) {
+          drawer.style.transform = 'translateY(0)';
+          backdrop.classList.remove('opacity-0', 'pointer-events-none');
+          backdrop.classList.add('opacity-100', 'pointer-events-auto');
+        } else {
+          drawer.style.transform = 'translateY(105%)';
+          backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+          backdrop.classList.add('opacity-0', 'pointer-events-none');
+        }
+      }
+
+      closeBtn?.addEventListener('click', () => setDrawerState(false));
+      backdrop?.addEventListener('click', () => setDrawerState(false));
+      dragPill?.addEventListener('click', () => setDrawerState(!isDrawerOpen));
+      toggleDrawerBtn?.addEventListener('click', () => setDrawerState(true));
+
+      // 2. Card Selection (Interactive Highlight)
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          // Reset previous
+          cards.forEach(c => {
+            c.classList.remove('ring-2', 'ring-secondary', 'bg-surface-container-high');
+            c.classList.add('bg-surface-container');
+            const ind = c.querySelector('.card-status-indicator');
+            if (ind) {
+              ind.className = 'card-status-indicator w-5 h-5 rounded-full bg-surface-container-highest text-outline flex items-center justify-center';
+              ind.innerHTML = '<span class="material-symbols-outlined text-[13px]">bookmark_border</span>';
+            }
+          });
+
+          // Activate clicked card
+          card.classList.remove('bg-surface-container');
+          card.classList.add('ring-2', 'ring-secondary', 'bg-surface-container-high');
+          const activeInd = card.querySelector('.card-status-indicator');
+          if (activeInd) {
+            activeInd.className = 'card-status-indicator w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-sm';
+            activeInd.innerHTML = '<span class="material-symbols-outlined text-[14px] font-bold">check</span>';
+          }
+
+          const title = card.getAttribute('data-title') || card.querySelector('h3').innerText;
+          selectedTitle.innerText = title;
+        });
+      });
+
+      // 3. Category Filter Buttons
+      filterPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          const filter = pill.getAttribute('data-filter');
+
+          // Style active pill
+          filterPills.forEach(p => {
+            p.className = 'filter-pill shrink-0 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant hover:text-white font-medium text-xs transition-all';
+          });
+          pill.className = 'filter-pill shrink-0 px-3.5 py-1.5 rounded-full bg-secondary text-on-secondary font-semibold text-xs transition-all shadow-[0_0_12px_rgba(231,195,85,0.4)]';
+
+          // Filter card visibility
+          cards.forEach(card => {
+            const cat = card.getAttribute('data-category') || '';
+            if (filter === 'all' || cat.includes(filter)) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // 4. Toast notification helper
+      function showToast(titleText, msgText) {
+        toastTitle.innerText = titleText;
+        toastMessage.innerText = msgText;
+        toast.classList.remove('-translate-y-8', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+
+        setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('-translate-y-8', 'opacity-0');
+        }, 2800);
+      }
+
+      // 5. Apply Button Interaction
+      applyBtn?.addEventListener('click', () => {
+        const curTitle = selectedTitle.innerText;
+        applyBtn.disabled = true;
+        applyBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span><span>Kanvas Güncelleniyor...</span>';
+
+        setTimeout(() => {
+          applyBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span><span>Şablon Aktarıldı! ✨</span>';
+          showToast('Şablon Kanvasa Yüklendi ✨', `${curTitle} stüdyo panonuza uygulandı.`);
+
+          setTimeout(() => {
+            applyBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">view_quilt</span><span>Bu Şablonu Kanvasa Uygula</span>';
+            applyBtn.disabled = false;
+            // Hafif çekmeceyi kapatıp kanvası gösterme hissi
+            setTimeout(() => setDrawerState(false), 400);
+          }, 1200);
+        }, 700);
+      });
+    })();
+  </script>
+</body></html>
