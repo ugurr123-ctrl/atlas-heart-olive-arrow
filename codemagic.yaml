@@ -5,6 +5,8 @@ workflows:
     integrations:
       app_store_connect: party-box
     environment:
+      groups:
+        - veira_release
       node: 22
       xcode: latest
       ios_signing:
