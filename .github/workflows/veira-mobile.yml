@@ -1,0 +1,76 @@
+name: Veira mobile test builds
+on:
+  push:
+    branches: [veira-local-privacy-release]
+    paths: ['mobile/**', 'veira-site/**', '.github/workflows/veira-mobile.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: node prepare.mjs
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-36 build-tools;36.0.0'
+      - run: npx --no-install cap add android
+      - name: Add Veira launcher icon
+        run: |
+          mkdir -p android/app/src/main/res/drawable-nodpi
+          cp www/apple-touch-icon.png android/app/src/main/res/drawable-nodpi/veira_icon.png
+          sed -i 's|@mipmap/ic_launcher_round|@drawable/veira_icon|g; s|@mipmap/ic_launcher|@drawable/veira_icon|g' android/app/src/main/AndroidManifest.xml
+      - run: bash ./gradlew --no-daemon assembleDebug bundleRelease
+        working-directory: mobile/android
+      - name: Verify and name test packages
+        run: |
+          apk=android/app/build/outputs/apk/debug/app-debug.apk
+          tools="$ANDROID_HOME/build-tools/36.0.0"
+          "$tools/apksigner" verify "$apk"
+          "$tools/aapt" dump badging "$apk" > android-package.txt
+          grep -F "targetSdkVersion:'36'" android-package.txt
+          grep -F "package: name='life.veira.preview'" android-package.txt
+          cp "$apk" Veira-Android-Test.apk
+          cp android/app/build/outputs/bundle/release/app-release.aab Veira-Android-Unsigned.aab
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Veira-Android
+          path: mobile/Veira-Android-*
+          if-no-files-found: error
+  ios:
+    runs-on: macos-26
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: node prepare.mjs
+      - run: xcodebuild -version
+      - run: npx --no-install cap add ios --packagemanager SPM
+      - name: Build iOS simulator app
+        run: |
+          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build CODE_SIGNING_ALLOWED=NO build
+          ditto -c -k --keepParent build/Build/Products/Debug-iphonesimulator/App.app Veira-iOS-Simulator.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Veira-iOS-Simulator
+          path: mobile/Veira-iOS-Simulator.zip
+          if-no-files-found: error

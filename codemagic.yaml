@@ -1,0 +1,40 @@
+workflows:
+  veira-testflight:
+    name: Veira iOS TestFlight
+    max_build_duration: 30
+    integrations:
+      app_store_connect: party-box
+    environment:
+      node: 22
+      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: life.veira.app
+    scripts:
+      - name: Prepare the Veira iPhone project
+        script: |
+          cd mobile
+          npm install --no-audit --no-fund
+          node prepare.mjs
+          node -e 'const fs=require("node:fs"),p="capacitor.config.json",config=JSON.parse(fs.readFileSync(p));config.appId="life.veira.app";fs.writeFileSync(p,JSON.stringify(config))'
+          npx --no-install cap add ios --packagemanager SPM
+      - name: Add the Veira app icon
+        script: |
+          cd mobile
+          icons=ios/App/App/Assets.xcassets/AppIcon.appiconset
+          sips -s format jpeg -z 1024 1024 www/apple-touch-icon.png --out "$TMPDIR/veira-icon.jpg"
+          sips -s format png "$TMPDIR/veira-icon.jpg" --out "$icons/Veira.png"
+          printf '%s\n' '{"images":[{"filename":"Veira.png","idiom":"universal","platform":"ios","size":"1024x1024"}],"info":{"author":"xcode","version":1}}' > "$icons/Contents.json"
+      - name: Archive and sign for App Store Connect
+        script: |
+          cd mobile/ios/App
+          xcode-project use-profiles
+          xcode-project build-ipa --project App.xcodeproj --scheme App
+    artifacts:
+      - mobile/ios/App/build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false
+        submit_to_app_store: false

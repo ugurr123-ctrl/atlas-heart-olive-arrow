@@ -1,0 +1,107 @@
+/* App chrome and content spacing, including display cutouts and the home indicator. */
+.veira-app-header,
+.veira-dock {
+  padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+}
+.veira-app-content {
+  padding-top: calc(4.5rem + env(safe-area-inset-top));
+  padding-bottom: calc(5.75rem + env(safe-area-inset-bottom));
+  padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+}
+.veira-dock-items {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  height: auto;
+  min-height: 4rem;
+}
+.veira-dock-label { overflow-wrap: anywhere; text-align: center; }
+
+/* Shared surfaces for Panom and Hedefler. */
+.veira-board, .veira-goals {
+  --workspace-ink: #edeefc;
+  --workspace-muted: #abaec9;
+  --workspace-accent: #f5d061;
+  --workspace-panel: #1d2342;
+  --workspace-border: #454866;
+  color: var(--workspace-ink);
+  overflow-wrap: anywhere;
+}
+html.veira-day-mode :is(.veira-board, .veira-goals) {
+  --workspace-ink: #2c261c;
+  --workspace-muted: #625543;
+  --workspace-accent: #795900;
+  --workspace-panel: #fffdf8;
+  --workspace-border: #d9c7a9;
+}
+:is(.veira-board-template, .veira-board-saved, .veira-goal-card) {
+  min-width: 0;
+  max-width: 100%;
+  color: var(--workspace-ink);
+  background: var(--workspace-panel);
+  border-color: var(--workspace-border);
+}
+.veira-board-actions { border-color: var(--workspace-border); }
+.veira-board-actions button, .veira-board-filters button { min-height: 36px; }
+.veira-app-header button:focus-visible, .veira-dock button:focus-visible,
+.veira-board button:focus-visible, .veira-goals button:focus-visible {
+  outline: 2px solid var(--workspace-accent, var(--theme-accent, #f5d061));
+  outline-offset: -2px;
+}
+.veira-board-preview { max-width: 100%; }
+.veira-board-editor-heading > div { min-width: 0; }
+.veira-board-tools button { min-width: 0; min-height: 44px; }
+.veira-goal-task { min-height: 44px; align-items: center; }
+.veira-goal-task input { flex: none; accent-color: var(--workspace-accent); }
+.veira-goal-task span { min-width: 0; }
+.veira-board-art { display: contents; }
+
+html.veira-day-mode :is(.veira-board, .veira-goals) [class*="text-[#abaec9]"]:not(.veira-board-art *) {
+  color: var(--workspace-muted);
+}
+html.veira-day-mode .veira-board :is([class*="text-[#f5d061]"], [class*="text-[#c0c1ff]"]):not(.veira-board-art *) {
+  color: var(--workspace-accent);
+}
+html.veira-day-mode .veira-board :is([class*="bg-[#1d2342]"], [class*="bg-[#151a33]"]):not(.veira-board-art *) {
+  background-color: var(--workspace-panel);
+  border-color: var(--workspace-border);
+}
+
+/* Template artwork keeps its own palette in both modes. */
+html.veira-day-mode .veira-board .veira-board-art [class*="text-white"] { color: #fff !important; }
+html.veira-day-mode .veira-board .veira-board-art [class*="text-white/80"] { color: #e4dfef !important; }
+html.veira-day-mode .veira-board .veira-board-art [class*="text-white/90"] { color: #f0eaf6 !important; }
+html.veira-day-mode .veira-board .veira-board-art [class*="bg-[#0c1024]"] {
+  color: #edeefc !important;
+  background: #0c1024 !important;
+  border-color: #ffffff1a !important;
+  box-shadow: none !important;
+}
+html.veira-day-mode .veira-board .veira-board-art textarea {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+html.veira-day-mode .veira-board .veira-board-art textarea:focus {
+  border-color: #f5d061 !important;
+}
+
+/* Keep the editor header within the dialog on narrow phones. */
+.veira-goal-dialog-header > :first-child,
+.veira-goal-dialog-header > :first-child > :last-child { min-width: 0; }
+.veira-goal-dialog-header > :last-child,
+.veira-goal-dialog-header button { flex-shrink: 0; }
+.veira-goal-dialog { overflow-wrap: anywhere; }
+html.veira-day-mode .veira-goal-dialog :is([class*="bg-[#1a1e35]"], [class*="bg-[#252840]"]) {
+  color: #2c261c !important;
+  background: #fffdf8 !important;
+  border-color: #d9c7a9 !important;
+}
+html.veira-day-mode .veira-goal-dialog :is([class*="text-[#c7c4d7]"], [class*="text-[#908fa0]"]) {
+  color: #625543 !important;
+}
+html.veira-day-mode .veira-goal-dialog :is([class*="text-[#e7c355]"], [class*="text-[#f5d061]"]) {
+  color: #795900 !important;
+}
+@media (max-width: 360px) {
+  .veira-board-tools { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .veira-goal-dialog-header > :first-child > :last-child > div:first-child { display: none; }
+}
