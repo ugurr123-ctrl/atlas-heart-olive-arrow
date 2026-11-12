@@ -7,7 +7,7 @@ export function listBoards(storage) {
     if (!key?.startsWith(boardPrefix)) continue;
     try {
       const board = JSON.parse(storage.getItem(key));
-      if (board?.id === key.slice(boardPrefix.length) && typeof board.templateId === "string" && Array.isArray(board.slots)) {
+      if (board?.id === key.slice(boardPrefix.length) && (Number.isInteger(board.templateId) || typeof board.templateId === "string") && Array.isArray(board.slots)) {
         boards.push(board);
       }
     } catch {
