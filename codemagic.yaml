@@ -28,6 +28,11 @@ workflows:
       - name: Archive and sign for App Store Connect
         script: |
           cd mobile/ios/App
+          if ! [[ "${VEIRA_IOS_BUILD_NUMBER:-}" =~ ^[1-9][0-9]*$ ]]; then
+            echo "Set VEIRA_IOS_BUILD_NUMBER to a positive integer greater than the last uploaded build number."
+            exit 1
+          fi
+          xcrun agvtool new-version -all "$VEIRA_IOS_BUILD_NUMBER"
           xcode-project use-profiles
           xcode-project build-ipa --project App.xcodeproj --scheme App
     artifacts:
