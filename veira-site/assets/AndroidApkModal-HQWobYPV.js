@@ -96,11 +96,11 @@ class MainActivity : AppCompatActivity() {
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
   <title>Veira — Vision & Goal Manifest Sanctuary</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com"><\/script>
+  
+  
+  <link href="/assets/local/83588e09f58f6ef3fee0.css" rel="stylesheet"/>
+  <link href="/assets/local/e6154908c44c742b6ee9.css" rel="stylesheet"/>
+  <script src="/assets/local/d2109ac990f556342867.js"><\/script>
 </head>
 <body class="bg-[#080A16] text-[#dee0ff]">
   <div id="root"></div>
