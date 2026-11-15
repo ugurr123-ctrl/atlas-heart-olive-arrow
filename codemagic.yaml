@@ -18,6 +18,8 @@ workflows:
           node prepare.mjs
           node -e 'const fs=require("node:fs"),p="capacitor.config.json",config=JSON.parse(fs.readFileSync(p));config.appId="life.veira.app";fs.writeFileSync(p,JSON.stringify(config))'
           npx --no-install cap add ios --packagemanager SPM
+          /usr/libexec/PlistBuddy -c "Add :NSCameraUsageDescription string Panona fotoğraf çekip eklemek için kamera kullanılır." ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :NSPhotoLibraryUsageDescription string Panona eklemek istediğin fotoğrafı seçmek için fotoğraf arşivi kullanılır." ios/App/App/Info.plist
       - name: Add the Veira app icon
         script: |
           cd mobile

@@ -1,6 +1,9 @@
+let plugin;
+
 export function nativeNotifications() {
   const capacitor = window.Capacitor;
-  return capacitor?.isNativePlatform() && capacitor.registerPlugin("LocalNotifications");
+  if (typeof capacitor?.isNativePlatform !== "function" || !capacitor.isNativePlatform()) return;
+  return plugin ??= capacitor.registerPlugin?.("LocalNotifications") ?? capacitor.Plugins?.LocalNotifications;
 }
 
 export async function updateReminder(plugin, id, enabled, time) {
