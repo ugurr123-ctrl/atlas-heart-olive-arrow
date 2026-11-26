@@ -12,3 +12,7 @@ await cp(source, webDir, {
 const entry = new URL("index.html", webDir);
 const html = await readFile(entry, "utf8");
 await writeFile(entry, html.replace(/<script\b[^>]*\bsrc="\/registerSW\.js"[^>]*><\/script>/g, ""));
+
+if (process.env.VEIRA_ANDROID_TEST === '1') {
+  await writeFile(new URL('assets/release-channel.js', webDir), 'export const androidTestMode = true;\n');
+}

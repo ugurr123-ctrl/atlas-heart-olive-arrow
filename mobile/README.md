@@ -1,0 +1,2 @@
+
+Android internal testing: prepare mobile assets with `VEIRA_ANDROID_TEST=1` before `cap sync android`. This produces a package-only release-channel flag: Android test builds unlock all templates/Astro, hide the subscription dialog, and block every billing entry point. The checked-in default is false, so iOS and regular release preparation retain store-backed Premium. Test-channel packages must never be promoted to production; prepare a fresh release package instead.

@@ -1,15 +1,16 @@
 import{r as runtime}from"./rolldown-runtime-Drvvfanw.js";
 import{c as jsx,d as react}from"./vendor-react-Cyg13_s7.js";
-import{premiumPlans,loadPremiumProducts,purchasePremium,restorePremium,refreshPremium}from"./premium-access.js";
+import{isAndroidTest,premiumPlans,loadPremiumProducts,purchasePremium,restorePremium,refreshPremium}from"./premium-access.js";
 const R=runtime(react(),1),e=jsx();
 function VeiraPremiumModal({isOpen,onClose,onShowToast}) {
  const ref=R.useRef(null),[open,setOpen]=R.useState(false),[selected,setSelected]=R.useState(0),[products,setProducts]=R.useState([]),[busy,setBusy]=R.useState(false),[message,setMessage]=R.useState('');
  const close=()=>{setOpen(false);onClose?.();};
- R.useEffect(()=>{const fn=()=>setOpen(true);window.addEventListener('veira:premium-open',fn);return()=>window.removeEventListener('veira:premium-open',fn);},[]);
- R.useEffect(()=>{if(isOpen)setOpen(true);},[isOpen]);
+ R.useEffect(()=>{const fn=()=>{if(!isAndroidTest())setOpen(true);};window.addEventListener('veira:premium-open',fn);return()=>window.removeEventListener('veira:premium-open',fn);},[]);
+ R.useEffect(()=>{if(isOpen&&!isAndroidTest())setOpen(true);},[isOpen]);
  R.useEffect(()=>{if(!open){ref.current?.close();return;}ref.current?.showModal();let live=true;setMessage('Planlar mağazadan yükleniyor…');setProducts([]);loadPremiumProducts().then(items=>{if(live){setProducts(items);setMessage(items.length?'':'Abonelikler henüz mağazada satışa açık değil.');}}).catch(error=>{if(live)setMessage(error.message||'Mağazaya bağlanılamadı. Tekrar deneyebilirsin.');});return()=>{live=false;};},[open]);
  const plan=premiumPlans[selected],product=products.find(p=>(p.planIdentifier||p.identifier)===plan.id);
  const action=async restore=>{if(busy)return;setBusy(true);setMessage('');try{const active=restore?await restorePremium():await purchasePremium(plan,product);if(active){onShowToast?.('Premium erişimin açıldı.','check');close();}else setMessage(restore?'Bu mağaza hesabında etkin Premium aboneliği bulunamadı.':'Satın alma henüz doğrulanmadı. Bekleyen işlemi mağazadan kontrol et.');}catch(error){setMessage(/cancel|dismiss/i.test(error.message)?'Satın alma iptal edildi.':error.message||'İşlem tamamlanamadı. Tekrar dene.');}finally{setBusy(false);}};
+ if(isAndroidTest())return null;
  return(0,e.jsxs)('dialog',{ref,className:'veira-premium-dialog',onCancel:close,onClose:()=>{if(open)close();},'aria-labelledby':'veira-premium-title',style:{margin:'auto',boxSizing:'border-box',width:'min(480px,calc(100vw - 28px))',maxHeight:'88dvh',overflowY:'auto',border:'1px solid #d9ba67',borderRadius:24,padding:24,background:'#15182c',color:'#f7f1df',boxShadow:'0 24px 80px #0009'},children:[
  (0,e.jsx)('button',{type:'button',onClick:close,'aria-label':'Kapat',style:{float:'right',width:44,height:44,borderRadius:'50%',background:'#272b44',color:'white'},children:'×'}),
  (0,e.jsx)('img',{src:'/apple-touch-icon.png',alt:'',width:52,height:52,style:{borderRadius:12,marginBottom:16}}),

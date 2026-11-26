@@ -1,12 +1,15 @@
+import { androidTestMode } from './release-channel.js';
 export const premiumPlans = [
   { id: 'life.veira.premium.monthly', label: 'Aylık', price: '₺59,99', period: 'ay', basePlan: 'monthly' },
   { id: 'life.veira.premium.yearly', label: 'Yıllık', price: '₺499,99', period: 'yıl', basePlan: 'yearly' }
 ];
 let active = false;
-export const hasPremium = () => active;
+export const isAndroidTest = () => androidTestMode && window.Capacitor?.getPlatform?.() === 'android';
+export const hasPremium = () => isAndroidTest() || active;
 export const isFreeTemplate = template => ['collage-0', 'collage-1', 'collage-2'].includes(template?.id);
-export function requestPremium() { window.dispatchEvent(new Event('veira:premium-open')); }
+export function requestPremium() { if (isAndroidTest()) return; window.dispatchEvent(new Event('veira:premium-open')); }
 function billing() {
+  if (isAndroidTest()) throw new Error('Test sürümünde satın alma kapalı.');
   const cap = window.Capacitor;
   if (!cap?.isNativePlatform?.()) throw new Error('Satın alma iPhone veya Android uygulamasında kullanılabilir.');
   return cap.registerPlugin('NativePurchases');
