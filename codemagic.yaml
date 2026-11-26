@@ -21,6 +21,7 @@ workflows:
           node ios-privacy.mjs
           /usr/libexec/PlistBuddy -c "Add :NSCameraUsageDescription string Panona fotoğraf çekip eklemek için kamera kullanılır." ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :NSPhotoLibraryUsageDescription string Panona eklemek istediğin fotoğrafı seçmek için fotoğraf arşivi kullanılır." ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Add :NSPhotoLibraryAddUsageDescription string Hazırladığın panoyu Fotoğraflar arşivine kaydetmek için izin kullanılır." ios/App/App/Info.plist
           /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" ios/App/App/Info.plist
       - name: Add the Veira app icon
         script: |
