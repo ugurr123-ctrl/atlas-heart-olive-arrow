@@ -280,3 +280,8 @@ html.veira-day-mode .veira-goal-dialog :is([class*="text-[#e7c355]"], [class*="t
  .veira-astro-profile > div:first-child > div:last-child {flex:1;min-width:0;}
 }
 .veira-collage-sans :is(.veira-collage-title,.veira-collage-quote) {font-family:Arial,sans-serif;}
+
+.veira-premium-dialog::backdrop{background:rgba(5,7,19,.82)}
+.veira-premium-dialog button:focus-visible,.veira-premium-dialog a:focus-visible{outline:2px solid #e8ca79;outline-offset:3px}
+.veira-premium-dialog button:enabled{cursor:pointer}
+.veira-premium-dialog button:enabled:hover{filter:brightness(1.08)}
